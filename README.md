@@ -2,6 +2,8 @@
 
 **Your heart, monitored beyond Earth.**
 
+**Live demo: https://astropulsex.netlify.app**
+
 AstroPulse is health monitoring software for astronauts on long-duration missions, built by team **Houston, Tenemos Tacos** for the **NASA Space Apps Challenge 2026** (Local Event: Tlaxcala City).
 
 Challenge: *Create Health Monitoring Software for Astronauts on Space Missions* (Intermediate).
@@ -60,9 +62,10 @@ python3 backend/server.py
 
 See [`backend/README.md`](backend/README.md) for the API (`/api/status`, `/api/readings`, `/api/checkin`, `/api/seed`) and `curl` examples.
 
-### GitHub Pages (public demo link for the submission)
+### Live demo (public link for the submission)
 
-Settings → Pages → Deploy from a branch → Branch: `main`, Folder: `/ (root)`. The public link is `https://0xjuarez.github.io/AstroPulse/`.
+- **Netlify: https://astropulsex.netlify.app** — deploy the repo (or drag `index.html` via Netlify Drop); connected to GitHub, every push to `main` redeploys it.
+- Mirror on GitHub Pages: `https://0xjuarez.github.io/AstroPulse/` — enable in Settings → Pages → Deploy from a branch → Branch: `main`, Folder: `/ (root)`.
 
 ## NASA data that makes this possible
 
