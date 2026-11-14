@@ -79,6 +79,17 @@ button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid 
 .sec-head h2 .sec-num{color:var(--red);margin-right:9px}
 .sec-head span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;text-align:right}
 
+/* ---------- Section blocks + clean-path routing ---------- */
+.sec-block{scroll-margin-top:86px;border-top:1px solid var(--line);margin-top:22px}
+.sec-block .sec-head{margin-top:12px}
+#crew,#checkinPanel,#actPanel,#station,#system,#references{scroll-margin-top:86px}
+.sec-nav{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap}
+.sec-nav a{background:var(--panel);color:var(--muted);text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;flex:1 1 auto;text-align:center;white-space:nowrap}
+.sec-nav a:hover{color:var(--ink);background:var(--panel2)}
+.sec-nav a.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--red);background:var(--panel2)}
+.sec-route{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.08em;text-decoration:none;white-space:nowrap}
+.sec-route:hover{color:var(--blue);text-decoration:underline}
+
 /* ---------- Console toolbar ---------- */
 .toolbar{display:flex;align-items:stretch;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap}
 .toolbar > div{background:var(--panel);padding:8px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -415,8 +426,25 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </div>
 
-  <!-- ================= CREW STRIP ================= -->
-  <section class="panel" style="margin-top:10px" aria-label="Crew status">
+  <!-- ================= SECTION NAV · CLEAN PATHS (NO #) ================= -->
+  <nav class="sec-nav" aria-label="Console sections">
+    <a href="crew" data-route="crew">Crew</a>
+    <a href="verdict" data-route="verdict">01 · Verdict</a>
+    <a href="indicators" data-route="indicators">02 · Indicators</a>
+    <a href="body" data-route="body">03 · Body</a>
+    <a href="charts" data-route="charts">04 · Charts</a>
+    <a href="guidance" data-route="guidance">05 · Guidance</a>
+    <a href="checkinPanel" data-route="checkinPanel">Check-In</a>
+    <a href="rules" data-route="rules">06 · Rules</a>
+    <a href="alerts" data-route="alerts">07 · Alerts</a>
+    <a href="context" data-route="context">Context</a>
+    <a href="station" data-route="station">Station</a>
+    <a href="system" data-route="system">System</a>
+    <a href="references" data-route="references">References</a>
+  </nav>
+
+  <!-- ================= CREW STRIP · /crew ================= -->
+  <section class="panel" id="crew" style="margin-top:10px" aria-label="Crew status">
     <div class="panel-head">
       <h3>Crew Status · All Subjects</h3>
       <div class="crew-counters">
@@ -428,10 +456,12 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <div class="crew-strip" id="crewStrip"></div>
   </section>
 
-  <!-- ================= 01 · VERDICT ================= -->
+  <section class="sec-block" id="verdict">
+  <!-- ================= 01 · VERDICT · /verdict ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">01</span>Am I OK Today — For Me?</h2>
     <span>Self-verdict · HR + mood vs own 7-day baseline · rules R1–R5</span>
+    <a class="sec-route" href="verdict" data-route="verdict">/verdict</a>
   </div>
   <div class="status ok" id="statusBanner" role="status">
     <div class="status-code" id="statusCode">NOMINAL<small>VERDICT</small></div>
@@ -451,10 +481,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </div>
 
-  <!-- ================= 02 · SIX INDICATORS ================= -->
+  </section>
+
+  <section class="sec-block" id="indicators">
+  <!-- ================= 02 · SIX INDICATORS · /indicators ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">02</span>Six Indicators · At a Glance</h2>
     <span>Color code · green nominal · amber watch · red alert</span>
+    <a class="sec-route" href="indicators" data-route="indicators">/indicators</a>
   </div>
   <section class="panel" aria-label="Six health indicators">
     <div class="panel-head">
@@ -509,10 +543,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </section>
 
-  <!-- ================= 03 · BODY MAP ================= -->
+  </section>
+
+  <section class="sec-block" id="body">
+  <!-- ================= 03 · BODY MAP · /body ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">03</span>Body Map · Tap a System</h2>
     <span>Function + current status per body system</span>
+    <a class="sec-route" href="body" data-route="body">/body</a>
   </div>
   <section class="panel" aria-label="Clickable human figure">
     <div class="panel-head">
@@ -579,10 +617,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </section>
 
-  <!-- ================= 04 · DYNAMIC CHARTS ================= -->
+  </section>
+
+  <section class="sec-block" id="charts">
+  <!-- ================= 04 · DYNAMIC CHARTS · /charts ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">04</span>Trends · How Indicators Change Over Time</h2>
     <span>Live stream + 7-day history</span>
+    <a class="sec-route" href="charts" data-route="charts">/charts</a>
   </div>
   <div class="charts-row">
     <div class="panel">
@@ -616,10 +658,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </div>
 
-  <!-- ================= 05 · TREATMENT & ACTIONS ================= -->
+  </section>
+
+  <section class="sec-block" id="guidance">
+  <!-- ================= 05 · TREATMENT & ACTIONS · /guidance ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">05</span>Treatment Guide · Actions · Mission Routine</h2>
     <span>What to do, when to measure, how to check in</span>
+    <a class="sec-route" href="guidance" data-route="guidance">/guidance</a>
   </div>
 
   <section class="panel" aria-label="Mission routine reminders">
@@ -708,10 +754,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </div>
 
-  <!-- ================= 06 · RULES R1–R5 ================= -->
+  </section>
+
+  <section class="sec-block" id="rules">
+  <!-- ================= 06 · RULES R1–R5 · /rules ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">06</span>Decision Rules · R1–R5</h2>
     <span>Deterministic · no black box · vs personal baseline</span>
+    <a class="sec-route" href="rules" data-route="rules">/rules</a>
   </div>
   <section class="panel" aria-label="Decision rules R1 to R5">
     <div class="panel-head">
@@ -730,10 +780,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </table>
   </section>
 
-  <!-- ================= 07 · ALERTS + SYS-LOG ================= -->
+  </section>
+
+  <section class="sec-block" id="alerts">
+  <!-- ================= 07 · ALERTS + SYS-LOG · /alerts ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">07</span>Alerts · SYS-LOG</h2>
     <span>Open alerts + onboard processor output</span>
+    <a class="sec-route" href="alerts" data-route="alerts">/alerts</a>
   </div>
   <div class="lower-grid">
     <div class="panel">
@@ -754,10 +808,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </div>
 
-  <!-- ================= ONBOARD CONTEXT (SECONDARY) ================= -->
+  </section>
+
+  <section class="sec-block" id="context">
+  <!-- ================= ONBOARD CONTEXT (SECONDARY) · /context ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">+</span>Onboard Context</h2>
     <span>Habitat · hazards · station · system · evidence</span>
+    <a class="sec-route" href="context" data-route="context">/context</a>
   </div>
   <div class="lower-grid">
     <section class="panel" aria-label="Habitat telemetry">
@@ -783,8 +841,10 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </section>
   </div>
 
-  <!-- ================= STATION SCHEMATIC ================= -->
-  <section class="panel" style="margin-top:10px" aria-label="Station schematic">
+  </section>
+
+  <!-- ================= STATION SCHEMATIC · /station ================= -->
+  <section class="panel" id="station" style="margin-top:10px" aria-label="Station schematic">
     <div class="panel-head"><h3>Station Schematic · Where the Loop Lives On Board</h3><span class="tag">SELECT MODULE</span></div>
     <div class="panel-body">
       <div class="station-svg-wrap">
@@ -839,8 +899,8 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </section>
 
-  <!-- ================= SYSTEM / BACKEND ================= -->
-  <section style="margin-top:10px" aria-label="System architecture">
+  <!-- ================= SYSTEM / BACKEND · /system ================= -->
+  <section id="system" style="margin-top:10px" aria-label="System architecture">
     <div class="pipeline" role="img" aria-label="Data pipeline: wearable sensors, signal processing, risk engine, local store, downlink sync">
       <div class="stage">
         <div class="st-num">STAGE 01</div>
@@ -945,8 +1005,8 @@ outbox   { pkg_id, type, bytes, state:
     </div>
   </section>
 
-  <!-- ================= REFERENCES ================= -->
-  <section class="panel" style="margin-top:10px" aria-label="NASA data and references">
+  <!-- ================= REFERENCES · /references ================= -->
+  <section class="panel" id="references" style="margin-top:10px" aria-label="NASA data and references">
     <div class="panel-head"><h3>References · NASA Data &amp; Evidence</h3><span class="tag">OPEN DATA · SYNTHETIC STREAM CALIBRATED TO PUBLISHED RANGES</span></div>
     <ul class="refs">
       <li><span class="rf-tag">HRP · RIDGE</span><span><strong>NASA Human Research Program — The Human Body in Space.</strong> The five RIDGE hazards and the ~20-min one-way Mars delay that makes onboard decisions necessary.</span><a href="https://www.nasa.gov/humans-in-space/the-human-body-in-space" target="_blank" rel="noopener">nasa.gov</a></li>
@@ -1683,8 +1743,62 @@ outbox   { pkg_id, type, bytes, state:
     }
   });
 
+  // ---------- Clean-path section routing (no # anywhere) ----------
+  var ROUTES = ['crew','verdict','indicators','body','charts','guidance','checkinPanel','rules','alerts','context','station','system','references'];
+  function routeBase(){
+    var p = window.location.pathname;
+    var last = p.substring(p.lastIndexOf('/') + 1);
+    if (ROUTES.indexOf(last) !== -1 || /\.html?$/i.test(last)) return p.slice(0, p.length - last.length);
+    return p.charAt(p.length - 1) === '/' ? p : p + '/';
+  }
+  function currentRoute(){
+    var p = window.location.pathname;
+    var last = p.substring(p.lastIndexOf('/') + 1);
+    return ROUTES.indexOf(last) !== -1 ? last : null;
+  }
+  function setActiveNav(route){
+    document.querySelectorAll('.sec-nav a').forEach(function(a){
+      a.classList.toggle('on', a.getAttribute('data-route') === route);
+    });
+  }
+  function scrollToRoute(route){
+    var el = document.getElementById(route);
+    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  }
+  function goToRoute(route, push){
+    if (!document.getElementById(route)) return;
+    if (push){
+      try { history.pushState({ route: route }, '', routeBase() + route); } catch(e){}
+    }
+    setActiveNav(route);
+    scrollToRoute(route);
+  }
+  document.querySelectorAll('a[data-route]').forEach(function(a){
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      goToRoute(a.getAttribute('data-route'), true);
+    });
+  });
+  window.addEventListener('popstate', function(){
+    var r = currentRoute();
+    setActiveNav(r);
+    if (r) scrollToRoute(r);
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
   // ---------- Init ----------
   renderVitals(); renderStatus(); renderCrew(); drawECG(); drawChart(); drawTrend('hr'); selectPart('heart');
+  // Opened directly on a clean path (e.g. /checkinPanel) or a legacy # link: land on that section, URL kept clean.
+  var initialRoute = currentRoute();
+  if (!initialRoute && window.location.hash){
+    var h = window.location.hash.slice(1);
+    if (document.getElementById(h)) initialRoute = h;
+  }
+  if (initialRoute){
+    try { history.replaceState({ route: initialRoute }, '', routeBase() + initialRoute); } catch(e){}
+    setActiveNav(initialRoute);
+    setTimeout(function(){ scrollToRoute(initialRoute); }, 80);
+  }
 })();
 </script>
 </body>
