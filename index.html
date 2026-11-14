@@ -402,6 +402,31 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 .refs-group b{color:var(--red)}
 .data-note{border-top:1px solid var(--line);padding:10px 12px;font-size:11.5px;line-height:1.6;color:var(--muted);font-family:"IBM Plex Mono",monospace;letter-spacing:.02em}
 .data-note b{color:var(--ink);letter-spacing:.12em;font-size:10px;text-transform:uppercase}
+/* ---------- Management pages (sections + operators) ---------- */
+.badge.stale{color:var(--muted);border-color:var(--line);background:var(--panel2)}
+input[type="text"],input[type="number"],select{width:100%;background:var(--panel2);border:1px solid var(--line);border-radius:var(--radius);color:var(--ink);padding:10px 11px;font-size:13px;min-height:42px}
+input:focus-visible,select:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+.field label{display:block;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;font-family:"IBM Plex Mono",monospace;margin-bottom:5px}
+.form-msg{display:none;margin-top:10px;padding:9px 11px;border:1px solid var(--ok);background:var(--ok-bg);font-size:12.5px;font-family:"IBM Plex Mono",monospace;line-height:1.5}
+.form-msg.show{display:block}
+.form-msg.err{border-color:var(--bad);background:var(--bad-bg)}
+.mgmt-list{list-style:none;margin:0;padding:0}
+.mgmt-row{display:flex;gap:10px;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.mgmt-row:last-child{border-bottom:0}
+.mgmt-row .mg-main{flex:1;min-width:190px}
+.mgmt-row .mg-main b{font-size:13px;display:block}
+.mgmt-row .mg-main span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.05em}
+.mgmt-row .mg-type{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;letter-spacing:.12em;padding:3px 7px;border:1px solid var(--line);color:var(--muted);flex:0 0 auto}
+.mini-btn{border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:"IBM Plex Mono",monospace;padding:7px 11px;cursor:pointer;min-height:34px;border-radius:var(--radius)}
+.mini-btn:hover{border-color:var(--muted)}
+.mini-btn.danger{border-color:var(--warn);color:var(--warn)}
+.mini-btn.armed{background:var(--bad);border-color:var(--bad);color:#fff}
+a.mini-btn{text-decoration:none;display:inline-flex;align-items:center}
+.rename-in{width:160px !important;min-height:34px !important;padding:6px 9px !important;font-size:12px !important}
+.custom-content p{margin:0 0 10px;font-size:13.5px;line-height:1.65;color:var(--muted)}
+.custom-content p:last-child{margin-bottom:0}
 .footer{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--faint);font-size:11px;line-height:1.7;font-family:"IBM Plex Mono",monospace;letter-spacing:.03em}
 .footer strong{color:var(--muted)}
 </style>
@@ -468,6 +493,8 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <a href="station" data-route="station">Station</a>
     <a href="system" data-route="system">System</a>
     <a href="references" data-route="references">References</a>
+    <a href="manage/sections" data-route="manage-sections">Manage Sections</a>
+    <a href="manage/operators" data-route="manage-operators">Manage Operators</a>
   </nav>
 
   <!-- ================= OVERVIEW · / (root summary) ================= -->
@@ -515,6 +542,8 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
       <a class="ov-card" href="station" data-route="station"><span class="ov-num">STATION</span><b>Station Schematic</b><span class="ov-desc">Where the monitoring loop lives on board, module by module.</span><span class="ov-route">/station</span></a>
       <a class="ov-card" href="system" data-route="system"><span class="ov-num">SYSTEM</span><b>System · Architecture &amp; Sync</b><span class="ov-desc">Pipeline, offline-first store-and-forward outbox, interface contract and data model.</span><span class="ov-route">/system</span></a>
       <a class="ov-card" href="references" data-route="references"><span class="ov-num">REFERENCES</span><b>References · NASA Data</b><span class="ov-desc">NASA Human Research Program and Canadian Space Agency resources behind this console.</span><span class="ov-route">/references</span></a>
+      <a class="ov-card" href="manage/sections" data-route="manage-sections"><span class="ov-num">MANAGE</span><b>Manage Sections</b><span class="ov-desc">Create new section pages with their own clean URL, rename the main sections, edit or remove custom ones.</span><span class="ov-route">/manage/sections</span></a>
+      <a class="ov-card" href="manage/operators" data-route="manage-operators"><span class="ov-num">MANAGE</span><b>Manage Operators</b><span class="ov-desc">Add, edit or remove crew operators — they join the crew strip and load into the console like any subject.</span><span class="ov-route">/manage/operators</span></a>
     </div>
   </section>
 
@@ -523,8 +552,8 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <div class="panel-head">
       <h3>Crew Status · All Subjects</h3>
       <div class="crew-counters">
-        <span>NOMINAL <b style="color:var(--ok)">2</b></span>
-        <span>WATCH <b style="color:var(--warn)">2</b></span>
+        <span>NOMINAL <b id="cntNominal" style="color:var(--ok)">2</b></span>
+        <span>WATCH <b id="cntWatch" style="color:var(--warn)">2</b></span>
         <span>OPEN ALERTS <b id="alertsCount" style="color:var(--bad)">2</b></span>
       </div>
     </div>
@@ -1132,6 +1161,70 @@ outbox   { pkg_id, type, bytes, state:
   </section>
   </section>
 
+  <!-- ================= MANAGE SECTIONS · /manage/sections ================= -->
+  <section class="page-view" id="page-manage-sections" data-page="manage-sections" style="margin-top:10px" aria-label="Manage sections">
+    <div class="sec-head" style="margin-top:2px">
+      <h2><span class="sec-num">MG</span>Manage Sections</h2>
+      <span>Create · rename · edit · remove · saved in this browser</span>
+      <a class="sec-route" href="manage/sections" data-route="manage-sections">/manage/sections</a>
+    </div>
+    <div class="sys-grid" style="margin-top:0">
+      <div class="panel">
+        <div class="panel-head"><h3>All Sections</h3><span class="tag">MAIN + CUSTOM</span></div>
+        <ul class="mgmt-list" id="sectionList"></ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3 id="secFormTitle">Create Section</h3><span class="tag">TITLE + TEXT CONTENT</span></div>
+        <div class="panel-body">
+          <div class="field"><label for="secTitleIn">Section title</label><input type="text" id="secTitleIn" placeholder="e.g. Mi Sección" maxlength="60"></div>
+          <div class="field" style="margin-top:10px"><label for="secBodyIn">Text content</label><textarea id="secBodyIn" placeholder="Text shown on the new section page" style="margin-top:0;min-height:110px"></textarea></div>
+          <div class="btn-row">
+            <button class="sc-btn" id="secSaveBtn" type="button">Create Section</button>
+            <button class="sc-btn hidden" id="secCancelBtn" type="button">Cancel Edit</button>
+          </div>
+          <div class="form-msg" id="secMsg" role="status"></div>
+          <p class="note-line">A new section gets its own clean URL from its title — “Mi Sección” becomes /mi-seccion — plus its own entry in the fixed navigation and its own page. Main sections can be renamed from the list; custom sections can be edited or removed. Everything is saved in this browser (localStorage, offline-first) and included in the JSON export on the System page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MANAGE OPERATORS · /manage/operators ================= -->
+  <section class="page-view" id="page-manage-operators" data-page="manage-operators" style="margin-top:10px" aria-label="Manage operators">
+    <div class="sec-head" style="margin-top:2px">
+      <h2><span class="sec-num">MG</span>Manage Operators</h2>
+      <span>Add · edit · remove crew · saved in this browser</span>
+      <a class="sec-route" href="manage/operators" data-route="manage-operators">/manage/operators</a>
+    </div>
+    <div class="sys-grid" style="margin-top:0">
+      <div class="panel">
+        <div class="panel-head"><h3>Crew Roster</h3><span class="tag" id="opCountTag">4 OPERATORS</span></div>
+        <ul class="mgmt-list" id="operatorList"></ul>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3 id="opFormTitle">Add Operator</h3><span class="tag">CREW MEMBER RECORD</span></div>
+        <div class="panel-body">
+          <div class="form-grid">
+            <div class="field"><label for="opNameIn">Name</label><input type="text" id="opNameIn" placeholder="e.g. CDR. M. CHEN" maxlength="48"></div>
+            <div class="field"><label for="opRoleIn">Role</label><input type="text" id="opRoleIn" placeholder="e.g. Flight Engineer" maxlength="48"></div>
+            <div class="field"><label for="opIdIn">Crew ID</label><input type="text" id="opIdIn" placeholder="e.g. APX-05" maxlength="16"></div>
+            <div class="field"><label for="opStatusIn">Status</label><select id="opStatusIn"><option value="ok">NOMINAL</option><option value="warn">WATCH</option><option value="stale">STALE</option></select></div>
+            <div class="field"><label for="opBaseIn">Baseline heart rate · BPM</label><input type="number" id="opBaseIn" min="40" max="120" step="1" placeholder="e.g. 66"></div>
+          </div>
+          <div class="btn-row">
+            <button class="sc-btn" id="opSaveBtn" type="button">Add Operator</button>
+            <button class="sc-btn hidden" id="opCancelBtn" type="button">Cancel Edit</button>
+          </div>
+          <div class="form-msg" id="opMsg" role="status"></div>
+          <p class="note-line">Operators appear in the crew strip on the Crew page and load into the console exactly like the original four subjects. Saved in this browser (localStorage, offline-first) and included in the JSON export on the System page.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom section pages are built here by the console store -->
+  <div id="customPages"></div>
+
   <div class="footer">
     <span><strong>ASTROPULSE</strong> · TEAM HOUSTON, TENEMOS TACOS · NASA SPACE APPS CHALLENGE 2026 · TLAXCALA CITY</span>
     <span>LIMITS: PROTOTYPE · SYNTHETIC DATA · NOT A MEDICAL DEVICE · NOT CLINICALLY VALIDATED · NOT NASA-ENDORSED · AI ASSISTED WITH CODE + COPY, HUMAN-REVIEWED</span>
@@ -1164,6 +1257,37 @@ outbox   { pkg_id, type, bytes, state:
     { id:'lucas', initials:'LM', color:'#476b1e', short:'L. MOREAU', name:'Lucas Moreau', role:'APX-04 · PAYLOAD SPECIALIST · SOL 142', hr:88, hrv:33, spo2:96, mood:2.1, status:'warn', base:{mean:71, sd:4.5}, alert:'Resting HR +9 BPM this week with low mood scores. Recommend light duty and exercise countermeasure review.' }
   ];
   var selectedCrew = crew[0];
+
+  // ---------- Persistent console store (localStorage · offline-first) ----------
+  var LS_KEY = 'astropulse.console.v1';
+  var customSections = [];
+  var sectionTitles = {};
+  function saveStore(){
+    try { localStorage.setItem(LS_KEY, JSON.stringify({ crew: crew, customSections: customSections, sectionTitles: sectionTitles })); } catch(e){}
+  }
+  (function loadStore(){
+    try {
+      var raw = localStorage.getItem(LS_KEY);
+      if (!raw) return;
+      var data = JSON.parse(raw);
+      if (data && Array.isArray(data.crew) && data.crew.length){
+        crew.length = 0;
+        data.crew.forEach(function(m){ crew.push(m); });
+        selectedCrew = crew[0];
+      }
+      if (data && Array.isArray(data.customSections)) customSections = data.customSections.filter(function(s){ return s && s.slug && s.title; });
+      if (data && data.sectionTitles && typeof data.sectionTitles === 'object') sectionTitles = data.sectionTitles;
+    } catch(e){}
+  })();
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function slugify(title){
+    var base = String(title || '').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    if (!base) base = 'section';
+    var reserved = ['overview','crew','verdict','indicators','body','charts','guidance','checkinPanel','rules','alerts','context','station','system','references','manage','sections','operators','manage-sections','manage-operators'];
+    var slug = base, n = 2;
+    while (reserved.indexOf(slug) !== -1 || customSections.some(function(s){ return s.slug === slug; })){ slug = base + '-' + n; n++; }
+    return slug;
+  }
 
   function $(id){ return document.getElementById(id); }
   function pad(n){ return (n<10?'0':'')+n; }
@@ -1302,7 +1426,9 @@ outbox   { pkg_id, type, bytes, state:
   $('exportJson').addEventListener('click', function(){
     var payload = { exported_utc: new Date().toISOString(), subject: selectedCrew.name, baseline: selectedCrew.base,
       checkin: state.checkin, current: { hr_bpm: state.hr, hrv_ms: state.hrv, spo2_pct: state.spo2, bp: state.bpSys + '/' + state.bpDia, glucose_mg_dl: state.glucose },
-      outbox: state.outbox, readings: state.readings, note: 'AstroPulse prototype \u00B7 synthetic demo data \u00B7 not a medical device' };
+      outbox: state.outbox, readings: state.readings,
+      operators: crew, customSections: customSections, sectionTitles: sectionTitles,
+      note: 'AstroPulse prototype \u00B7 synthetic demo data \u00B7 not a medical device' };
     download('astropulse-records.json', JSON.stringify(payload, null, 2), 'application/json');
     log('OK','export \u00B7 records JSON downloaded by operator \u00B7 data never left this device');
   });
@@ -1785,7 +1911,18 @@ outbox   { pkg_id, type, bytes, state:
   });
 
   // ---------- Crew strip ----------
-  function badgeText(s){ return s==='ok' ? 'Nominal' : (s==='warn' ? 'Watch' : 'Act Now'); }
+  function badgeText(s){ return s==='ok' ? 'Nominal' : (s==='warn' ? 'Watch' : (s==='stale' ? 'Stale' : 'Act Now')); }
+  function loadCrew(m){
+    if(!m) return;
+    selectedCrew = m;
+    state.hr=m.hr; state.hrv=m.hrv; state.spo2=m.spo2;
+    state.hrTarget=null; state._lastEvKey=null;
+    state.checkin.mood = Math.round(m.mood);
+    $('crewNameLabel').textContent = m.short;
+    log('SYS','console FDO-01 \u00B7 subject loaded \u00B7 '+m.role.split(' \u00B7 ')[0]+' '+m.name.toUpperCase());
+    renderCrew(); renderVitals(); renderStatus(); drawChart();
+    goToRoute('verdict', true);
+  }
   function renderCrew(){
     var html='';
     crew.forEach(function(m){
@@ -1797,18 +1934,12 @@ outbox   { pkg_id, type, bytes, state:
         + '</button>';
     });
     $('crewStrip').innerHTML = html;
+    if ($('cntNominal')) $('cntNominal').textContent = crew.filter(function(m){ return m.status==='ok'; }).length;
+    if ($('cntWatch')) $('cntWatch').textContent = crew.filter(function(m){ return m.status==='warn'; }).length;
     document.querySelectorAll('.crew-cell').forEach(function(cell){
       cell.addEventListener('click', function(){
         var m = crew.filter(function(x){ return x.id===cell.getAttribute('data-id'); })[0];
-        if(!m) return;
-        selectedCrew = m;
-        state.hr=m.hr; state.hrv=m.hrv; state.spo2=m.spo2;
-        state.hrTarget=null; state._lastEvKey=null;
-        state.checkin.mood = Math.round(m.mood);
-        $('crewNameLabel').textContent = m.short;
-        log('SYS','console FDO-01 \u00B7 subject loaded \u00B7 '+m.role.split(' \u00B7 ')[0]+' '+m.name.toUpperCase());
-        renderCrew(); renderVitals(); renderStatus(); drawChart();
-        goToRoute('verdict', true);
+        loadCrew(m);
       });
     });
   }
@@ -1877,17 +2008,32 @@ outbox   { pkg_id, type, bytes, state:
   });
 
   // ---------- Clean-path section routing (no # anywhere) ----------
-  var ROUTES = ['crew','verdict','indicators','body','charts','guidance','checkinPanel','rules','alerts','context','station','system','references'];
-  function routeBase(){
-    var p = window.location.pathname;
-    var last = p.substring(p.lastIndexOf('/') + 1);
-    if (ROUTES.indexOf(last) !== -1 || /\.html?$/i.test(last)) return p.slice(0, p.length - last.length);
-    return p.charAt(p.length - 1) === '/' ? p : p + '/';
+  var STATIC_ROUTES = ['crew','verdict','indicators','body','charts','guidance','checkinPanel','rules','alerts','context','station','system','references'];
+  function allRoutes(){
+    return STATIC_ROUTES.concat(['manage-sections','manage-operators'], customSections.map(function(s){ return s.slug; }));
   }
-  function currentRoute(){
+  function isRoute(route){ return route === 'overview' || allRoutes().indexOf(route) !== -1; }
+  function routeToPath(route){
+    if (route === 'overview') return '';
+    if (route === 'manage-sections') return 'manage/sections';
+    if (route === 'manage-operators') return 'manage/operators';
+    return route;
+  }
+  function parseLocation(){
     var p = window.location.pathname;
+    var m = p.match(/^(.*?)\/?manage\/(sections|operators)\/?$/);
+    if (m) return { route: m[2] === 'sections' ? 'manage-sections' : 'manage-operators', base: m[1] + '/' };
     var last = p.substring(p.lastIndexOf('/') + 1);
-    return ROUTES.indexOf(last) !== -1 ? last : null;
+    if (allRoutes().indexOf(last) !== -1) return { route: last, base: p.slice(0, p.length - last.length) };
+    if (/\.html?$/i.test(last)) return { route: null, base: p.slice(0, p.length - last.length) };
+    return { route: null, base: p.charAt(p.length - 1) === '/' ? p : p + '/' };
+  }
+  var basePath = parseLocation().base;
+  function fixHrefs(){
+    document.querySelectorAll('a[data-route]').forEach(function(a){
+      var r = a.getAttribute('data-route');
+      a.setAttribute('href', r === 'overview' ? basePath : basePath + routeToPath(r));
+    });
   }
   // ---------- Sticky section nav: pin it directly under the sticky topbar ----------
   // The topbar wraps to a different height per viewport, so measure both bars live
@@ -1903,7 +2049,13 @@ outbox   { pkg_id, type, bytes, state:
   window.addEventListener('load', syncSticky);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncSticky);
   // ---------- One section per page: only the active page is shown ----------
-  var PAGE_TITLES = { overview:'Overview', crew:'Crew', verdict:'01 · Verdict', indicators:'02 · Indicators', body:'03 · Body', charts:'04 · Charts', guidance:'05 · Guidance', checkinPanel:'Check-In', rules:'06 · Rules', alerts:'07 · Alerts', context:'Context', station:'08 · Station', system:'System', references:'09 · References' };
+  var PAGE_TITLES = { overview:'Overview', crew:'Crew', verdict:'01 · Verdict', indicators:'02 · Indicators', body:'03 · Body', charts:'04 · Charts', guidance:'05 · Guidance', checkinPanel:'Check-In', rules:'06 · Rules', alerts:'07 · Alerts', context:'Context', station:'08 · Station', system:'System', references:'09 · References', 'manage-sections':'Manage Sections', 'manage-operators':'Manage Operators' };
+  function pageTitle(route){
+    if (sectionTitles[route]) return sectionTitles[route];
+    if (PAGE_TITLES[route]) return PAGE_TITLES[route];
+    var cs = customSections.filter(function(s){ return s.slug === route; })[0];
+    return cs ? cs.title : 'Crew Health Monitoring Console';
+  }
   var currentPage = 'overview';
   function setActiveNav(route){
     document.querySelectorAll('.sec-nav a').forEach(function(a){
@@ -1917,45 +2069,352 @@ outbox   { pkg_id, type, bytes, state:
     }
   }
   function showPage(route, keepScroll){
-    var target = (route && ROUTES.indexOf(route) !== -1) ? route : 'overview';
+    var target = isRoute(route) ? route : 'overview';
     currentPage = target;
     document.querySelectorAll('.page-view').forEach(function(p){
       p.classList.toggle('active', p.getAttribute('data-page') === target);
     });
     setActiveNav(target);
-    document.title = 'AstroPulse — ' + (PAGE_TITLES[target] || 'Crew Health Monitoring Console');
+    document.title = 'AstroPulse — ' + pageTitle(target);
     if (!keepScroll) window.scrollTo(0, 0);
     if (target === 'charts'){ drawChart(); drawTrend(trendKey); drawECG(); }
     syncSticky();
   }
   function goToRoute(route, push){
-    var target = (route && ROUTES.indexOf(route) !== -1) ? route : 'overview';
+    var target = isRoute(route) ? route : 'overview';
     if (push && target !== currentPage){
-      try { history.pushState({ route: target }, '', target === 'overview' ? routeBase() : routeBase() + target); } catch(e){}
+      try { history.pushState({ route: target }, '', target === 'overview' ? basePath : basePath + routeToPath(target)); } catch(e){}
     }
     showPage(target);
   }
-  document.querySelectorAll('a[data-route]').forEach(function(a){
-    a.addEventListener('click', function(e){
-      e.preventDefault();
-      goToRoute(a.getAttribute('data-route'), true);
-    });
+  // Delegated: covers links created later (custom sections in nav, cards, lists).
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest ? e.target.closest('a[data-route]') : null;
+    if (!a) return;
+    e.preventDefault();
+    goToRoute(a.getAttribute('data-route'), true);
   });
   window.addEventListener('popstate', function(){
-    showPage(currentRoute() || 'overview');
+    showPage(parseLocation().route || 'overview');
   });
+
+  // ---------- Manage Sections : renames, custom pages, CRUD ----------
+  var MAIN_SECTION_DEFS = [
+    { route:'overview', name:'Overview', path:'/' },
+    { route:'crew', name:'Crew Status', path:'/crew' },
+    { route:'verdict', name:'Verdict', path:'/verdict' },
+    { route:'indicators', name:'Indicators', path:'/indicators' },
+    { route:'body', name:'Body Map', path:'/body' },
+    { route:'charts', name:'Charts', path:'/charts' },
+    { route:'guidance', name:'Guidance', path:'/guidance' },
+    { route:'checkinPanel', name:'Daily Check-In', path:'/checkinPanel' },
+    { route:'rules', name:'Rules', path:'/rules' },
+    { route:'alerts', name:'Alerts', path:'/alerts' },
+    { route:'context', name:'Context', path:'/context' },
+    { route:'station', name:'Station Schematic', path:'/station' },
+    { route:'system', name:'System', path:'/system' },
+    { route:'references', name:'References', path:'/references' }
+  ];
+  var navDefaults = {}, cardDefaults = {}, headingNodes = {}, headingDefaults = {};
+  function captureTitleDefaults(){
+    MAIN_SECTION_DEFS.forEach(function(d){
+      var nav = document.querySelector('.sec-nav a[data-route="' + d.route + '"]');
+      if (nav) navDefaults[d.route] = nav.textContent;
+      var cardB = document.querySelector('.ov-card[data-route="' + d.route + '"] b');
+      if (cardB) cardDefaults[d.route] = cardB.textContent;
+      var page = document.querySelector('.page-view[data-page="' + d.route + '"]');
+      var head = page ? (page.querySelector('.sec-head h2') || page.querySelector('.panel-head h3')) : null;
+      if (head){
+        for (var i = 0; i < head.childNodes.length; i++){
+          if (head.childNodes[i].nodeType === 3 && head.childNodes[i].nodeValue.trim()){
+            headingNodes[d.route] = head.childNodes[i];
+            headingDefaults[d.route] = head.childNodes[i].nodeValue;
+            break;
+          }
+        }
+      }
+    });
+  }
+  function applyTitles(){
+    MAIN_SECTION_DEFS.forEach(function(d){
+      var t = sectionTitles[d.route];
+      var nav = document.querySelector('.sec-nav a[data-route="' + d.route + '"]');
+      if (nav && navDefaults[d.route] !== undefined) nav.textContent = t || navDefaults[d.route];
+      var cardB = document.querySelector('.ov-card[data-route="' + d.route + '"] b');
+      if (cardB && cardDefaults[d.route] !== undefined) cardB.textContent = t || cardDefaults[d.route];
+      if (headingNodes[d.route]) headingNodes[d.route].nodeValue = t || headingDefaults[d.route];
+    });
+    document.title = 'AstroPulse — ' + pageTitle(currentPage);
+  }
+  function showMsg(el, text, isErr){
+    el.textContent = text;
+    el.className = 'form-msg show' + (isErr ? ' err' : '');
+  }
+  function buildCustomPages(){
+    document.querySelectorAll('.sec-nav a[data-custom-link]').forEach(function(a){ a.remove(); });
+    var nav = document.querySelector('.sec-nav');
+    var manageLink = nav.querySelector('a[data-route="manage-sections"]');
+    customSections.forEach(function(s){
+      var a = document.createElement('a');
+      a.href = s.slug;
+      a.setAttribute('data-route', s.slug);
+      a.setAttribute('data-custom-link', '1');
+      a.textContent = s.title;
+      nav.insertBefore(a, manageLink);
+    });
+    var host = $('customPages');
+    host.innerHTML = '';
+    customSections.forEach(function(s){
+      var sec = document.createElement('section');
+      sec.className = 'sec-block page-view';
+      sec.setAttribute('data-page', s.slug);
+      sec.id = 'page-' + s.slug;
+      var paras = String(s.content || '').split(/\n+/).filter(function(x){ return x.trim(); }).map(function(p){ return '<p>' + esc(p.trim()) + '</p>'; }).join('');
+      sec.innerHTML = '<div class="sec-head"><h2><span class="sec-num">CS</span>' + esc(s.title) + '</h2><span>Custom section · created in Manage Sections</span><a class="sec-route" href="' + s.slug + '" data-route="' + s.slug + '">/' + esc(s.slug) + '</a></div>'
+        + '<section class="panel"><div class="panel-head"><h3>' + esc(s.title) + '</h3><span class="tag">CUSTOM · SAVED LOCALLY</span></div><div class="panel-body custom-content">' + (paras || '<p>No content yet.</p>') + '</div></section>';
+      host.appendChild(sec);
+    });
+    document.querySelectorAll('.ov-card[data-custom-card]').forEach(function(a){ a.remove(); });
+    var grid = document.querySelector('.ov-grid');
+    customSections.forEach(function(s){
+      var a = document.createElement('a');
+      a.className = 'ov-card';
+      a.href = s.slug;
+      a.setAttribute('data-route', s.slug);
+      a.setAttribute('data-custom-card', '1');
+      a.innerHTML = '<span class="ov-num">CUSTOM</span><b>' + esc(s.title) + '</b><span class="ov-desc">' + esc(String(s.content || '').slice(0, 110)) + '</span><span class="ov-route">/' + esc(s.slug) + '</span>';
+      grid.appendChild(a);
+    });
+    fixHrefs();
+    showPage(currentPage, true);
+    syncSticky();
+  }
+  var editingSlug = null;
+  function resetSectionForm(){
+    editingSlug = null;
+    $('secTitleIn').value = '';
+    $('secBodyIn').value = '';
+    $('secFormTitle').textContent = 'Create Section';
+    $('secSaveBtn').textContent = 'Create Section';
+    $('secCancelBtn').classList.add('hidden');
+  }
+  function renderSectionList(){
+    var html = '';
+    MAIN_SECTION_DEFS.forEach(function(d){
+      var cur = sectionTitles[d.route] || d.name;
+      html += '<li class="mgmt-row"><span class="mg-type">MAIN</span><div class="mg-main"><b>' + esc(cur) + '</b><span>' + d.path + '</span></div>'
+        + '<input class="rename-in" type="text" id="rename-' + d.route + '" value="' + esc(cur) + '" maxlength="48" aria-label="Rename section ' + esc(d.name) + '">'
+        + '<button class="mini-btn" type="button" data-rename="' + d.route + '">Rename</button>'
+        + '<a class="mini-btn" href="' + d.route + '" data-route="' + d.route + '">Open</a></li>';
+    });
+    customSections.forEach(function(s){
+      html += '<li class="mgmt-row"><span class="mg-type">CUSTOM</span><div class="mg-main"><b>' + esc(s.title) + '</b><span>/' + esc(s.slug) + '</span></div>'
+        + '<a class="mini-btn" href="' + s.slug + '" data-route="' + s.slug + '">Open</a>'
+        + '<button class="mini-btn" type="button" data-edit-sec="' + s.slug + '">Edit</button>'
+        + '<button class="mini-btn danger" type="button" data-del-sec="' + s.slug + '">Remove</button></li>';
+    });
+    $('sectionList').innerHTML = html;
+    fixHrefs();
+    $('sectionList').querySelectorAll('[data-rename]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var route = btn.getAttribute('data-rename');
+        var def = MAIN_SECTION_DEFS.filter(function(d){ return d.route === route; })[0];
+        var val = $('rename-' + route).value.trim();
+        if (!val || val === def.name) delete sectionTitles[route];
+        else sectionTitles[route] = val;
+        saveStore(); applyTitles(); renderSectionList();
+        showMsg($('secMsg'), 'Section renamed: ' + def.path + ' now shows as "' + (sectionTitles[route] || def.name) + '" in the navigation.', false);
+        log('SYS', 'manage \u00B7 section renamed \u00B7 ' + def.path + ' \u2192 "' + (sectionTitles[route] || def.name) + '" \u00B7 saved locally');
+      });
+    });
+    $('sectionList').querySelectorAll('[data-edit-sec]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var s = customSections.filter(function(x){ return x.slug === btn.getAttribute('data-edit-sec'); })[0];
+        if (!s) return;
+        editingSlug = s.slug;
+        $('secTitleIn').value = s.title;
+        $('secBodyIn').value = s.content;
+        $('secFormTitle').textContent = 'Edit Section · /' + s.slug;
+        $('secSaveBtn').textContent = 'Save Changes';
+        $('secCancelBtn').classList.remove('hidden');
+        $('secTitleIn').focus();
+        $('secTitleIn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+    $('sectionList').querySelectorAll('[data-del-sec]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var slug = btn.getAttribute('data-del-sec');
+        if (btn.getAttribute('data-armed') !== slug){
+          btn.setAttribute('data-armed', slug);
+          btn.textContent = 'Confirm Remove';
+          btn.classList.add('armed');
+          return;
+        }
+        var wasOpen = currentPage === slug;
+        customSections = customSections.filter(function(x){ return x.slug !== slug; });
+        if (editingSlug === slug) resetSectionForm();
+        saveStore(); buildCustomPages(); renderSectionList();
+        showMsg($('secMsg'), 'Section /' + slug + ' removed. Its navigation entry and page are gone.', false);
+        log('SYS', 'manage \u00B7 custom section removed \u00B7 /' + slug + ' \u00B7 saved locally');
+        if (wasOpen) goToRoute('manage-sections', true);
+      });
+    });
+  }
+  $('secSaveBtn').addEventListener('click', function(){
+    var title = $('secTitleIn').value.trim();
+    var content = $('secBodyIn').value.trim();
+    if (!title){ showMsg($('secMsg'), 'A title is required to create the section.', true); return; }
+    if (!content){ showMsg($('secMsg'), 'Text content is required — it is what the new page shows.', true); return; }
+    if (editingSlug){
+      var s = customSections.filter(function(x){ return x.slug === editingSlug; })[0];
+      if (s){ s.title = title; s.content = content; }
+      saveStore(); buildCustomPages(); renderSectionList();
+      showMsg($('secMsg'), 'Section updated: "' + title + '" at /' + editingSlug + ' (URL unchanged).', false);
+      log('SYS', 'manage \u00B7 custom section edited \u00B7 /' + editingSlug + ' \u00B7 saved locally');
+      resetSectionForm();
+    } else {
+      var slug = slugify(title);
+      customSections.push({ slug: slug, title: title, content: content });
+      saveStore(); buildCustomPages(); renderSectionList();
+      showMsg($('secMsg'), 'Section created: "' + title + '" now lives at /' + slug + ' with its own entry in the navigation.', false);
+      log('SYS', 'manage \u00B7 custom section created \u00B7 /' + slug + ' \u00B7 saved locally');
+      resetSectionForm();
+    }
+  });
+  $('secCancelBtn').addEventListener('click', resetSectionForm);
+
+  // ---------- Manage Operators : roster CRUD ----------
+  var OP_COLORS = ['#8a3325','#2f5d7d','#7a5c2e','#476b1e','#3d6b6e','#6e3d55'];
+  var editingOpId = null;
+  function opParts(m){ var p = String(m.role || '').split(' \u00B7 '); return { id: p[0] || '', title: p[1] || '' }; }
+  function resetOpForm(){
+    editingOpId = null;
+    $('opNameIn').value = ''; $('opRoleIn').value = ''; $('opIdIn').value = '';
+    $('opStatusIn').value = 'ok'; $('opBaseIn').value = '';
+    $('opFormTitle').textContent = 'Add Operator';
+    $('opSaveBtn').textContent = 'Add Operator';
+    $('opCancelBtn').classList.add('hidden');
+  }
+  function renderOperatorList(){
+    var html = '';
+    crew.forEach(function(m){
+      var p = opParts(m);
+      html += '<li class="mgmt-row"><span class="avatar" style="background:' + m.color + '">' + esc(m.initials) + '</span>'
+        + '<div class="mg-main"><b>' + esc(m.name) + (m.id === selectedCrew.id ? ' \u00B7 LOADED' : '') + '</b><span>' + esc(p.id) + ' \u00B7 ' + esc(p.title) + ' \u00B7 BASELINE HR ' + m.base.mean + ' BPM</span></div>'
+        + '<span class="badge ' + m.status + '">' + badgeText(m.status) + '</span>'
+        + '<button class="mini-btn" type="button" data-load-op="' + m.id + '">Load</button>'
+        + '<button class="mini-btn" type="button" data-edit-op="' + m.id + '">Edit</button>'
+        + '<button class="mini-btn danger" type="button" data-del-op="' + m.id + '">Remove</button></li>';
+    });
+    if (!html) html = '<li class="mgmt-row"><div class="mg-main"><b>No operators on the roster</b><span>Add one with the form.</span></div></li>';
+    $('operatorList').innerHTML = html;
+    $('opCountTag').textContent = crew.length + (crew.length === 1 ? ' OPERATOR' : ' OPERATORS');
+    $('operatorList').querySelectorAll('[data-load-op]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        loadCrew(crew.filter(function(x){ return x.id === btn.getAttribute('data-load-op'); })[0]);
+      });
+    });
+    $('operatorList').querySelectorAll('[data-edit-op]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var m = crew.filter(function(x){ return x.id === btn.getAttribute('data-edit-op'); })[0];
+        if (!m) return;
+        var p = opParts(m);
+        editingOpId = m.id;
+        $('opNameIn').value = m.name;
+        $('opRoleIn').value = p.title;
+        $('opIdIn').value = p.id;
+        $('opStatusIn').value = m.status;
+        $('opBaseIn').value = m.base.mean;
+        $('opFormTitle').textContent = 'Edit Operator · ' + p.id;
+        $('opSaveBtn').textContent = 'Save Changes';
+        $('opCancelBtn').classList.remove('hidden');
+        $('opNameIn').focus();
+        $('opNameIn').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+    });
+    $('operatorList').querySelectorAll('[data-del-op]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        var id = btn.getAttribute('data-del-op');
+        if (crew.length <= 1){ showMsg($('opMsg'), 'At least one operator must remain on the roster.', true); return; }
+        if (btn.getAttribute('data-armed') !== id){
+          btn.setAttribute('data-armed', id);
+          btn.textContent = 'Confirm Remove';
+          btn.classList.add('armed');
+          return;
+        }
+        var removed = crew.filter(function(x){ return x.id === id; })[0];
+        var wasSelected = selectedCrew.id === id;
+        crew = crew.filter(function(x){ return x.id !== id; });
+        if (editingOpId === id) resetOpForm();
+        if (wasSelected){
+          selectedCrew = crew[0];
+          state.hr = selectedCrew.hr; state.hrv = selectedCrew.hrv; state.spo2 = selectedCrew.spo2;
+          state.hrTarget = null; state._lastEvKey = null;
+          $('crewNameLabel').textContent = selectedCrew.short;
+        }
+        saveStore(); renderCrew(); renderOperatorList(); renderVitals(); renderStatus(); drawChart();
+        showMsg($('opMsg'), 'Operator removed: ' + (removed ? removed.name : id) + '. The crew strip no longer lists them.', false);
+        log('SYS', 'manage \u00B7 operator removed \u00B7 ' + (removed ? removed.name : id) + ' \u00B7 saved locally');
+      });
+    });
+  }
+  $('opSaveBtn').addEventListener('click', function(){
+    var name = $('opNameIn').value.trim();
+    var roleTitle = $('opRoleIn').value.trim();
+    var crewId = $('opIdIn').value.trim().toUpperCase();
+    var status = $('opStatusIn').value;
+    var base = parseInt($('opBaseIn').value, 10);
+    if (!name){ showMsg($('opMsg'), 'Name is required.', true); return; }
+    if (!roleTitle){ showMsg($('opMsg'), 'Role is required (e.g. Flight Engineer).', true); return; }
+    if (!crewId){ showMsg($('opMsg'), 'Crew ID is required (e.g. APX-05).', true); return; }
+    if (isNaN(base) || base < 40 || base > 120){ showMsg($('opMsg'), 'Baseline heart rate must be a number between 40 and 120 BPM.', true); return; }
+    var dup = crew.some(function(x){ return x.id !== editingOpId && opParts(x).id.toUpperCase() === crewId; });
+    if (dup){ showMsg($('opMsg'), 'Crew ID ' + crewId + ' is already in use by another operator.', true); return; }
+    if (editingOpId){
+      var m = crew.filter(function(x){ return x.id === editingOpId; })[0];
+      if (m){
+        m.name = name;
+        m.short = name.toUpperCase();
+        m.initials = name.replace(/^[^A-Za-z]+/, '').split(/[\s.]+/).filter(Boolean).map(function(w){ return w.charAt(0); }).join('').slice(0, 2).toUpperCase() || 'OP';
+        m.role = crewId + ' \u00B7 ' + roleTitle.toUpperCase() + ' \u00B7 SOL 142';
+        m.status = status;
+        m.base.mean = base;
+        if (selectedCrew.id === m.id){
+          $('crewNameLabel').textContent = m.short;
+          renderVitals(); renderStatus();
+        }
+      }
+      saveStore(); renderCrew(); renderOperatorList();
+      showMsg($('opMsg'), 'Operator updated: ' + name + ' \u00B7 ' + crewId + ' \u00B7 baseline ' + base + ' BPM.', false);
+      log('SYS', 'manage \u00B7 operator edited \u00B7 ' + crewId + ' ' + name.toUpperCase() + ' \u00B7 saved locally');
+      resetOpForm();
+    } else {
+      var initials = name.replace(/^[^A-Za-z]+/, '').split(/[\s.]+/).filter(Boolean).map(function(w){ return w.charAt(0); }).join('').slice(0, 2).toUpperCase() || 'OP';
+      var nm = { id: 'op-' + Date.now().toString(36), initials: initials, color: OP_COLORS[crew.length % OP_COLORS.length],
+        short: name.toUpperCase(), name: name, role: crewId + ' \u00B7 ' + roleTitle.toUpperCase() + ' \u00B7 SOL 142',
+        hr: base, hrv: 58, spo2: 98, mood: 3.5, status: status, base: { mean: base, sd: 4 },
+        alert: 'Operator added via Manage Operators. Baseline HR ' + base + ' BPM set at intake; no alerts recorded yet.' };
+      crew.push(nm);
+      saveStore(); renderCrew(); renderOperatorList(); renderAlerts();
+      showMsg($('opMsg'), 'Operator added: ' + name + ' \u00B7 ' + crewId + ' \u00B7 ' + badgeText(status).toUpperCase() + ' \u00B7 baseline ' + base + ' BPM. Find them in the crew strip on the Crew page.', false);
+      log('SYS', 'manage \u00B7 operator added \u00B7 ' + crewId + ' ' + name.toUpperCase() + ' \u00B7 baseline ' + base + ' BPM \u00B7 saved locally');
+      resetOpForm();
+    }
+  });
+  $('opCancelBtn').addEventListener('click', resetOpForm);
 
   // ---------- Init ----------
   renderVitals(); renderStatus(); renderCrew(); drawECG(); drawChart(); drawTrend('hr'); selectPart('heart');
-  // Opened directly on a clean path (e.g. /checkinPanel or /references): show ONLY that section as its own page.
+  captureTitleDefaults(); applyTitles(); buildCustomPages(); renderSectionList(); renderOperatorList(); fixHrefs();
+  // Opened directly on a clean path (e.g. /checkinPanel, /mi-seccion or /manage/sections): show ONLY that page.
   // Opened on the root path: show the overview summary. A legacy # link is converted to the clean path.
-  var initialRoute = currentRoute();
+  var initialRoute = parseLocation().route;
   if (!initialRoute && window.location.hash){
     var h = window.location.hash.slice(1);
-    if (ROUTES.indexOf(h) !== -1) initialRoute = h;
+    if (allRoutes().indexOf(h) !== -1) initialRoute = h;
   }
   if (initialRoute){
-    try { history.replaceState({ route: initialRoute }, '', routeBase() + initialRoute); } catch(e){}
+    try { history.replaceState({ route: initialRoute }, '', basePath + routeToPath(initialRoute)); } catch(e){}
     showPage(initialRoute, true);
   } else {
     showPage('overview', true);
