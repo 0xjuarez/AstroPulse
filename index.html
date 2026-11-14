@@ -99,6 +99,19 @@ button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid 
 .sec-route{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.08em;text-decoration:none;white-space:nowrap}
 .sec-route:hover{color:var(--blue);text-decoration:underline}
 
+/* ---------- Page routing: one section per page ---------- */
+.page-view{display:none}
+.page-view.active{display:block}
+.ov-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:900px){.ov-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.ov-grid{grid-template-columns:1fr}}
+.ov-card{background:var(--panel);padding:12px 13px;text-decoration:none;color:var(--ink);display:block}
+.ov-card:hover{background:var(--panel2)}
+.ov-card .ov-num{font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;color:var(--red);letter-spacing:.14em}
+.ov-card b{display:block;font-size:14px;margin-top:4px}
+.ov-card .ov-desc{display:block;font-size:12px;color:var(--muted);line-height:1.5;margin-top:3px}
+.ov-card .ov-route{display:block;font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);margin-top:7px;letter-spacing:.06em}
+
 /* ---------- Console toolbar ---------- */
 .toolbar{display:flex;align-items:stretch;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap}
 .toolbar > div{background:var(--panel);padding:8px 12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
@@ -441,6 +454,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   <!-- ================= SECTION NAV · CLEAN PATHS (NO #) ================= -->
   <nav class="sec-nav" aria-label="Console sections">
+    <a href="./" data-route="overview">Overview</a>
     <a href="crew" data-route="crew">Crew</a>
     <a href="verdict" data-route="verdict">01 · Verdict</a>
     <a href="indicators" data-route="indicators">02 · Indicators</a>
@@ -456,8 +470,56 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <a href="references" data-route="references">References</a>
   </nav>
 
+  <!-- ================= OVERVIEW · / (root summary) ================= -->
+  <section class="page-view" id="page-overview" data-page="overview" style="margin-top:10px" aria-label="Mission overview">
+    <div class="sec-head" style="margin-top:2px">
+      <h2><span class="sec-num">OV</span>Mission Overview · Console Summary</h2>
+      <span>One subject · one verdict · every section on its own page</span>
+      <a class="sec-route" href="./" data-route="overview">/</a>
+    </div>
+    <div class="status ok" id="ovStatus">
+      <div class="status-code" id="ovStatusCode">NOMINAL<small>VERDICT</small></div>
+      <div style="flex:1;min-width:260px">
+        <h2 id="ovStatusTitle">Subject OK — cleared for duty</h2>
+        <p id="ovStatusText">Heart rate and recovery match the subject's own usual pattern today.</p>
+        <p class="note-line" style="margin-top:8px">Subject: <strong id="ovSubject" style="color:var(--muted)">Cmdr. Elena Vasquez · APX-01 · COMMANDER · SOL 142</strong> — full reasoning, rules and actions on the <a href="verdict" data-route="verdict">Verdict page</a>.</p>
+      </div>
+      <div class="status-right">
+        <div class="risk-num" id="ovRiskNum">18<small>/100</small></div>
+        <div class="risk-label">Wellness Risk Index</div>
+      </div>
+    </div>
+    <div class="hab-grid" style="border:1px solid var(--line);margin-top:10px" aria-label="Six indicators summary">
+      <div class="hab"><label>Blood Pressure</label><div class="v" id="ovBp">118/76</div><div class="s">MMHG</div></div>
+      <div class="hab"><label>Heart Rate</label><div class="v" id="ovHr">76 BPM</div><div class="s">RESTING</div></div>
+      <div class="hab"><label>Blood Glucose</label><div class="v" id="ovGlu">94 mg/dL</div><div class="s">FASTING</div></div>
+      <div class="hab"><label>Body Temperature</label><div class="v" id="ovTemp">36.7 °C</div><div class="s">CORE SENSOR</div></div>
+      <div class="hab"><label>Sleep · Last Period</label><div class="v" id="ovSleep">6.4 h</div><div class="s">TARGET 7.0 H</div></div>
+      <div class="hab"><label>Mood · Today</label><div class="v" id="ovMood">3.4 / 5</div><div class="s">SELF-RATING</div></div>
+    </div>
+    <div class="sec-head">
+      <h2><span class="sec-num">INDEX</span>Section Pages</h2>
+      <span>Each section is its own page · clean URL · opens on its own</span>
+    </div>
+    <div class="ov-grid">
+      <a class="ov-card" href="crew" data-route="crew"><span class="ov-num">CREW</span><b>Crew Status</b><span class="ov-desc">All four subjects at a glance — pick one to load the full console for that astronaut.</span><span class="ov-route">/crew</span></a>
+      <a class="ov-card" href="verdict" data-route="verdict"><span class="ov-num">01 · VERDICT</span><b>Am I OK Today — For Me?</b><span class="ov-desc">The self-verdict: heart rate + mood vs the subject's own 7-day baseline, with the rule that fired.</span><span class="ov-route">/verdict</span></a>
+      <a class="ov-card" href="indicators" data-route="indicators"><span class="ov-num">02 · INDICATORS</span><b>Six Indicators · At a Glance</b><span class="ov-desc">Blood pressure, heart rate, glucose, temperature, sleep and mood — color-coded green, amber, red.</span><span class="ov-route">/indicators</span></a>
+      <a class="ov-card" href="body" data-route="body"><span class="ov-num">03 · BODY</span><b>Body Map · Tap a System</b><span class="ov-desc">Clickable human figure: function, current status and what to watch for, system by system.</span><span class="ov-route">/body</span></a>
+      <a class="ov-card" href="charts" data-route="charts"><span class="ov-num">04 · CHARTS</span><b>Trends · Over Time</b><span class="ov-desc">Live heart-rate stream, ECG trace and dynamic 7-day charts for every indicator.</span><span class="ov-route">/charts</span></a>
+      <a class="ov-card" href="guidance" data-route="guidance"><span class="ov-num">05 · GUIDANCE</span><b>Treatment Guide · Actions</b><span class="ov-desc">Mission routine reminders, directed actions ACT-01 and the guided-breathing countermeasure.</span><span class="ov-route">/guidance</span></a>
+      <a class="ov-card" href="checkinPanel" data-route="checkinPanel"><span class="ov-num">CHECK-IN</span><b>Daily Check-In · CHK-01</b><span class="ov-desc">The 30-second self-report: mood, energy, stress and sleep quality, committed against your own last 7 days.</span><span class="ov-route">/checkinPanel</span></a>
+      <a class="ov-card" href="rules" data-route="rules"><span class="ov-num">06 · RULES</span><b>Decision Rules · R1–R5</b><span class="ov-desc">The deterministic rule set, live state included — no black box, every verdict traceable to a rule.</span><span class="ov-route">/rules</span></a>
+      <a class="ov-card" href="alerts" data-route="alerts"><span class="ov-num">07 · ALERTS</span><b>Alerts · SYS-LOG</b><span class="ov-desc">Open alerts for crew and surgeon, plus the onboard processor's live output.</span><span class="ov-route">/alerts</span></a>
+      <a class="ov-card" href="context" data-route="context"><span class="ov-num">CONTEXT</span><b>Onboard Context</b><span class="ov-desc">Habitat telemetry and the NASA RIDGE hazards this console is designed around.</span><span class="ov-route">/context</span></a>
+      <a class="ov-card" href="station" data-route="station"><span class="ov-num">STATION</span><b>Station Schematic</b><span class="ov-desc">Where the monitoring loop lives on board, module by module.</span><span class="ov-route">/station</span></a>
+      <a class="ov-card" href="system" data-route="system"><span class="ov-num">SYSTEM</span><b>System · Architecture &amp; Sync</b><span class="ov-desc">Pipeline, offline-first store-and-forward outbox, interface contract and data model.</span><span class="ov-route">/system</span></a>
+      <a class="ov-card" href="references" data-route="references"><span class="ov-num">REFERENCES</span><b>References · NASA Data</b><span class="ov-desc">NASA Human Research Program and Canadian Space Agency resources behind this console.</span><span class="ov-route">/references</span></a>
+    </div>
+  </section>
+
   <!-- ================= CREW STRIP · /crew ================= -->
-  <section class="panel" id="crew" style="margin-top:10px" aria-label="Crew status">
+  <section class="panel page-view" id="crew" data-page="crew" style="margin-top:10px" aria-label="Crew status">
     <div class="panel-head">
       <h3>Crew Status · All Subjects</h3>
       <div class="crew-counters">
@@ -469,7 +531,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <div class="crew-strip" id="crewStrip"></div>
   </section>
 
-  <section class="sec-block" id="verdict">
+  <section class="sec-block page-view" id="verdict" data-page="verdict">
   <!-- ================= 01 · VERDICT · /verdict ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">01</span>Am I OK Today — For Me?</h2>
@@ -496,7 +558,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="indicators">
+  <section class="sec-block page-view" id="indicators" data-page="indicators">
   <!-- ================= 02 · SIX INDICATORS · /indicators ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">02</span>Six Indicators · At a Glance</h2>
@@ -544,7 +606,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
         <div class="ind ok" id="indMood">
           <div class="ind-top"><label>Mood · Today</label><span class="ind-chip">NOMINAL</span></div>
           <div class="ind-val"><span id="vMood">3.4</span><small>/ 5 · SELF-RATING</small></div>
-          <div class="ind-sub" id="vMoodSub">Crew self-rating · daily check-in in section 05</div>
+          <div class="ind-sub" id="vMoodSub">Crew self-rating · from the daily check-in (Check-In page)</div>
           <p class="ind-what"><b>What it is:</b> your own 1–5 rating from the daily check-in. Mood is a real instrument here: isolation and confinement erode it slowly, and <b>falling mood + rising heart rate</b> is the pattern rule R2 exists to catch.</p>
         </div>
       </div>
@@ -558,7 +620,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="body">
+  <section class="sec-block page-view" id="body" data-page="body">
   <!-- ================= 03 · BODY MAP · /body ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">03</span>Body Map · Tap a System</h2>
@@ -632,7 +694,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="charts">
+  <section class="sec-block page-view" id="charts" data-page="charts">
   <!-- ================= 04 · DYNAMIC CHARTS · /charts ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">04</span>Trends · How Indicators Change Over Time</h2>
@@ -673,11 +735,11 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="guidance">
+  <section class="sec-block page-view" id="guidance" data-page="guidance">
   <!-- ================= 05 · TREATMENT & ACTIONS · /guidance ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">05</span>Treatment Guide · Actions · Mission Routine</h2>
-    <span>What to do, when to measure, how to check in</span>
+    <span>What to do · when to measure · treatment for today's verdict</span>
     <a class="sec-route" href="guidance" data-route="guidance">/guidance</a>
   </div>
 
@@ -689,7 +751,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <div class="panel-body">
       <ul class="rec-list">
         <li><div class="rec-code">06:30</div><div><b>Morning measurements — blood pressure + glucose</b><span>BP cuff seated, arm at heart level, after 5 quiet minutes. Glucose finger-stick before breakfast. Fasting, same-time readings are the ones that compare day to day.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
-        <li><div class="rec-code">07:00</div><div><b>Daily check-in — 30 seconds</b><span>Rate mood, energy, stress and sleep quality 1–5 in CHK-01 below. This is where the mood indicator comes from; without it, the console only sees half of you.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+        <li><div class="rec-code">07:00</div><div><b>Daily check-in — 30 seconds</b><span>Rate mood, energy, stress and sleep quality 1–5 in CHK-01 on the Check-In page. This is where the mood indicator comes from; without it, the console only sees half of you.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
         <li><div class="rec-code">12:30</div><div><b>Midday re-check — only if a morning reading was amber or red</b><span>Repeat the flagged measurement once, same conditions. One odd reading is noise; two in a row are a signal the rules can act on.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
         <li><div class="rec-code">16:00</div><div><b>Exercise countermeasure — 30 minutes</b><span>Resistive device + cycle ergometer. One session treats four systems at once: heart, bone, muscle and mood. Skipping it is a health decision, not a rest day.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
         <li><div class="rec-code">21:30</div><div><b>Wind-down — protect tonight's sleep</b><span>Lights low, displays off, no caffeine after 14:00. Tonight's sleep sets tomorrow's heart-rate baseline, mood and immune strength.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
@@ -697,41 +759,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     </div>
   </section>
 
-  <div class="lower-grid" style="margin-top:10px">
-    <!-- Check-in -->
-    <div class="panel" id="checkinPanel">
-      <div class="panel-head">
-        <h3>Daily Check-In · CHK-01</h3>
-        <span class="tag">30 SEC · SUBJECTIVE INPUT</span>
-      </div>
-      <div class="panel-body">
-        <p class="note-line" style="margin:0 0 6px">New to self-checks? Rate how you feel <strong style="color:var(--muted)">right now</strong>, 1–5. There are no wrong answers — the console compares you with <strong style="color:var(--muted)">your own last 7 days</strong>, never with another astronaut.</p>
-        <div class="scale-row" data-key="mood">
-          <div class="scale-top"><label>Mood</label><output>3 / 5</output></div>
-          <div class="scale-btns"></div>
-          <div class="scale-hint"><span>Low</span><span>High</span></div>
-        </div>
-        <div class="scale-row" data-key="energy">
-          <div class="scale-top"><label>Energy</label><output>3 / 5</output></div>
-          <div class="scale-btns"></div>
-          <div class="scale-hint"><span>Depleted</span><span>Full</span></div>
-        </div>
-        <div class="scale-row" data-key="stress">
-          <div class="scale-top"><label>Stress</label><output>3 / 5</output></div>
-          <div class="scale-btns"></div>
-          <div class="scale-hint"><span>Low</span><span>Severe</span></div>
-        </div>
-        <div class="scale-row" data-key="sleepQ">
-          <div class="scale-top"><label>Sleep Quality</label><output>3 / 5</output></div>
-          <div class="scale-btns"></div>
-          <div class="scale-hint"><span>Fragmented</span><span>Restorative</span></div>
-        </div>
-        <textarea id="noteInput" placeholder="Free-text note for the medical officer — e.g. headache after EVA prep, homesick today"></textarea>
-        <button class="submit-btn" id="submitCheckin">Commit Check-In · Recompute Risk</button>
-        <div class="checkin-done" id="checkinDone" role="status"></div>
-      </div>
-    </div>
-
+  <div style="margin-top:10px">
     <div class="col-stack">
       <!-- Actions -->
       <div class="panel" id="actPanel">
@@ -769,7 +797,49 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="rules">
+  <section class="sec-block page-view" id="checkinPanel" data-page="checkinPanel">
+  <!-- ================= CHECK-IN · /checkinPanel ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">CHK</span>Daily Check-In · Self-Report</h2>
+    <span>30 seconds · mood · energy · stress · sleep quality · vs own last 7 days</span>
+    <a class="sec-route" href="checkinPanel" data-route="checkinPanel">/checkinPanel</a>
+  </div>
+  <div class="panel">
+      <div class="panel-head">
+        <h3>Daily Check-In · CHK-01</h3>
+        <span class="tag">30 SEC · SUBJECTIVE INPUT</span>
+      </div>
+      <div class="panel-body">
+        <p class="note-line" style="margin:0 0 6px">New to self-checks? Rate how you feel <strong style="color:var(--muted)">right now</strong>, 1–5. There are no wrong answers — the console compares you with <strong style="color:var(--muted)">your own last 7 days</strong>, never with another astronaut.</p>
+        <div class="scale-row" data-key="mood">
+          <div class="scale-top"><label>Mood</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Low</span><span>High</span></div>
+        </div>
+        <div class="scale-row" data-key="energy">
+          <div class="scale-top"><label>Energy</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Depleted</span><span>Full</span></div>
+        </div>
+        <div class="scale-row" data-key="stress">
+          <div class="scale-top"><label>Stress</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Low</span><span>Severe</span></div>
+        </div>
+        <div class="scale-row" data-key="sleepQ">
+          <div class="scale-top"><label>Sleep Quality</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Fragmented</span><span>Restorative</span></div>
+        </div>
+        <textarea id="noteInput" placeholder="Free-text note for the medical officer — e.g. headache after EVA prep, homesick today"></textarea>
+        <button class="submit-btn" id="submitCheckin">Commit Check-In · Recompute Risk</button>
+        <div class="checkin-done" id="checkinDone" role="status"></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section class="sec-block page-view" id="rules" data-page="rules">
   <!-- ================= 06 · RULES R1–R5 · /rules ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">06</span>Decision Rules · R1–R5</h2>
@@ -795,7 +865,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="alerts">
+  <section class="sec-block page-view" id="alerts" data-page="alerts">
   <!-- ================= 07 · ALERTS + SYS-LOG · /alerts ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">07</span>Alerts · SYS-LOG</h2>
@@ -823,7 +893,7 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <section class="sec-block" id="context">
+  <section class="sec-block page-view" id="context" data-page="context">
   <!-- ================= ONBOARD CONTEXT (SECONDARY) · /context ================= -->
   <div class="sec-head">
     <h2><span class="sec-num">+</span>Onboard Context</h2>
@@ -856,8 +926,14 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
   </section>
 
-  <!-- ================= STATION SCHEMATIC · /station ================= -->
-  <section class="panel" id="station" style="margin-top:10px" aria-label="Station schematic">
+  <section class="sec-block page-view" id="station" data-page="station">
+  <!-- ================= 08 · STATION SCHEMATIC · /station ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">08</span>Station Schematic</h2>
+    <span>Where the monitoring loop lives on board · module by module</span>
+    <a class="sec-route" href="station" data-route="station">/station</a>
+  </div>
+  <section class="panel" aria-label="Station schematic">
     <div class="panel-head"><h3>Station Schematic · Where the Loop Lives On Board</h3><span class="tag">SELECT MODULE</span></div>
     <div class="panel-body">
       <div class="station-svg-wrap">
@@ -911,9 +987,15 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
       </div>
     </div>
   </section>
+  </section>
 
   <!-- ================= SYSTEM / BACKEND · /system ================= -->
-  <section id="system" style="margin-top:10px" aria-label="System architecture">
+  <section class="page-view" id="system" data-page="system" style="margin-top:10px" aria-label="System architecture">
+    <div class="sec-head" style="margin-top:2px">
+      <h2><span class="sec-num">+</span>System · Architecture &amp; Sync</h2>
+      <span>Offline-first · onboard scoring · store-and-forward downlink</span>
+      <a class="sec-route" href="system" data-route="system">/system</a>
+    </div>
     <div class="pipeline" role="img" aria-label="Data pipeline: wearable sensors, signal processing, risk engine, local store, downlink sync">
       <div class="stage">
         <div class="st-num">STAGE 01</div>
@@ -1018,8 +1100,14 @@ outbox   { pkg_id, type, bytes, state:
     </div>
   </section>
 
-  <!-- ================= REFERENCES · /references ================= -->
-  <section class="panel" id="references" style="margin-top:10px" aria-label="NASA data and references">
+  <section class="sec-block page-view" id="references" data-page="references">
+  <!-- ================= 09 · REFERENCES · /references ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">09</span>References · NASA Data</h2>
+    <span>NASA HRP + CSA resources behind this console</span>
+    <a class="sec-route" href="references" data-route="references">/references</a>
+  </div>
+  <section class="panel" aria-label="NASA data and references">
     <div class="panel-head"><h3>References · NASA Data &amp; Evidence</h3><span class="tag">OPEN DATA · SYNTHETIC STREAM CALIBRATED TO PUBLISHED RANGES</span></div>
     <div class="refs-group"><b>Challenge Resources</b> · NASA Human Research Program</div>
     <ul class="refs">
@@ -1041,6 +1129,7 @@ outbox   { pkg_id, type, bytes, state:
       <li><span class="rf-tag">CODE + DEMO</span><span><strong>Team repository</strong> — this console is one static file; code and live demo share one URL.</span><a href="https://github.com/0xjuarez/AstroPulse" target="_blank" rel="noopener">github.com/0xjuarez/AstroPulse</a></li>
     </ul>
     <p class="data-note"><b>Data Use Note · </b>NASA does not endorse any non-US government entity and is not responsible for information contained on non-US government websites. For non-US government websites, participants must comply with that specific website's data-use parameters. Data on this page is used under each website's own data-use parameters.</p>
+  </section>
   </section>
 
   <div class="footer">
@@ -1345,6 +1434,14 @@ outbox   { pkg_id, type, bytes, state:
     renderRecs(risk);
     updateRuleStates(ev);
     renderAlerts();
+    var ovS = $('ovStatus');
+    if (ovS){
+      ovS.className = 'status ' + (ev.band === 'stale' ? 'stale' : ev.band);
+      $('ovStatusCode').innerHTML = code.innerHTML;
+      $('ovStatusTitle').textContent = title.textContent;
+      $('ovStatusText').textContent = text.textContent;
+      $('ovRiskNum').innerHTML = risk + '<small>/100</small>';
+    }
   }
 
   function renderRecs(risk){
@@ -1405,6 +1502,14 @@ outbox   { pkg_id, type, bytes, state:
     if (state.hr > 84){ $('hrContext').textContent='ELEVATED FOR REST'; $('hrSub').textContent='Sustained elevation — trend under watch'; }
     else if (state.hr < 60){ $('hrContext').textContent='LOW · STEADY'; $('hrSub').textContent='Consistent with athletic adaptation'; }
     else { $('hrContext').textContent='NORMAL SINUS RHYTHM'; $('hrSub').textContent='No arrhythmia flags, last 60 s window'; }
+    if ($('ovHr')){
+      $('ovHr').textContent = state.hr + ' BPM';
+      $('ovBp').textContent = state.bpSys + '/' + state.bpDia;
+      $('ovGlu').textContent = state.glucose + ' mg/dL';
+      $('ovTemp').textContent = state.temp.toFixed(1) + ' °C';
+      $('ovMood').textContent = (state.submitted ? state.checkin.mood : selectedCrew.mood).toFixed(1) + ' / 5';
+      $('ovSubject').textContent = selectedCrew.name + ' · ' + selectedCrew.role;
+    }
     renderIndicators();
   }
 
@@ -1475,6 +1580,7 @@ outbox   { pkg_id, type, bytes, state:
 
   // ---------- 7-day dynamic trend chart (per indicator) ----------
   var trendDays = ['SOL 136','SOL 137','SOL 138','SOL 139','SOL 140','SOL 141','SOL 142'];
+  var trendKey = 'hr';
   var trendData = {
     hr:      { label:'RESTING HR · BPM',        unit:'',      fmt:function(v){ return v + ' BPM'; }, vals:[68,69,71,70,73,75,76],    base:68,  alert:76,  baseLabel:'BASELINE 68',  alertLabel:'ALERT +2 SD · 76' },
     bp:      { label:'SYSTOLIC BP · MMHG',      unit:'',      fmt:function(v){ return v + ' mmHg'; }, vals:[116,118,117,119,121,120,118], alert:130, alertLabel:'WATCH LINE · 130' },
@@ -1485,6 +1591,7 @@ outbox   { pkg_id, type, bytes, state:
   };
   function drawTrend(key){
     var d = trendData[key]; if(!d) return;
+    trendKey = key;
     $('trendLabel').textContent = d.label;
     document.querySelectorAll('.trend-btn').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-ind')===key); });
     var cv = $('trendChart'); if(!cv) return;
@@ -1701,7 +1808,7 @@ outbox   { pkg_id, type, bytes, state:
         $('crewNameLabel').textContent = m.short;
         log('SYS','console FDO-01 \u00B7 subject loaded \u00B7 '+m.role.split(' \u00B7 ')[0]+' '+m.name.toUpperCase());
         renderCrew(); renderVitals(); renderStatus(); drawChart();
-        $('statusBanner').scrollIntoView({behavior:'smooth', block:'center'});
+        goToRoute('verdict', true);
       });
     });
   }
@@ -1795,6 +1902,9 @@ outbox   { pkg_id, type, bytes, state:
   window.addEventListener('resize', syncSticky);
   window.addEventListener('load', syncSticky);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncSticky);
+  // ---------- One section per page: only the active page is shown ----------
+  var PAGE_TITLES = { overview:'Overview', crew:'Crew', verdict:'01 · Verdict', indicators:'02 · Indicators', body:'03 · Body', charts:'04 · Charts', guidance:'05 · Guidance', checkinPanel:'Check-In', rules:'06 · Rules', alerts:'07 · Alerts', context:'Context', station:'08 · Station', system:'System', references:'09 · References' };
+  var currentPage = 'overview';
   function setActiveNav(route){
     document.querySelectorAll('.sec-nav a').forEach(function(a){
       a.classList.toggle('on', a.getAttribute('data-route') === route);
@@ -1806,17 +1916,24 @@ outbox   { pkg_id, type, bytes, state:
       nav.scrollTo({ left: on.offsetLeft - nav.clientWidth / 2 + on.offsetWidth / 2, behavior: 'smooth' });
     }
   }
-  function scrollToRoute(route){
-    var el = document.getElementById(route);
-    if (el) el.scrollIntoView({ behavior:'smooth', block:'start' });
+  function showPage(route, keepScroll){
+    var target = (route && ROUTES.indexOf(route) !== -1) ? route : 'overview';
+    currentPage = target;
+    document.querySelectorAll('.page-view').forEach(function(p){
+      p.classList.toggle('active', p.getAttribute('data-page') === target);
+    });
+    setActiveNav(target);
+    document.title = 'AstroPulse — ' + (PAGE_TITLES[target] || 'Crew Health Monitoring Console');
+    if (!keepScroll) window.scrollTo(0, 0);
+    if (target === 'charts'){ drawChart(); drawTrend(trendKey); drawECG(); }
+    syncSticky();
   }
   function goToRoute(route, push){
-    if (!document.getElementById(route)) return;
-    if (push){
-      try { history.pushState({ route: route }, '', routeBase() + route); } catch(e){}
+    var target = (route && ROUTES.indexOf(route) !== -1) ? route : 'overview';
+    if (push && target !== currentPage){
+      try { history.pushState({ route: target }, '', target === 'overview' ? routeBase() : routeBase() + target); } catch(e){}
     }
-    setActiveNav(route);
-    scrollToRoute(route);
+    showPage(target);
   }
   document.querySelectorAll('a[data-route]').forEach(function(a){
     a.addEventListener('click', function(e){
@@ -1825,24 +1942,23 @@ outbox   { pkg_id, type, bytes, state:
     });
   });
   window.addEventListener('popstate', function(){
-    var r = currentRoute();
-    setActiveNav(r);
-    if (r) scrollToRoute(r);
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
+    showPage(currentRoute() || 'overview');
   });
 
   // ---------- Init ----------
   renderVitals(); renderStatus(); renderCrew(); drawECG(); drawChart(); drawTrend('hr'); selectPart('heart');
-  // Opened directly on a clean path (e.g. /checkinPanel) or a legacy # link: land on that section, URL kept clean.
+  // Opened directly on a clean path (e.g. /checkinPanel or /references): show ONLY that section as its own page.
+  // Opened on the root path: show the overview summary. A legacy # link is converted to the clean path.
   var initialRoute = currentRoute();
   if (!initialRoute && window.location.hash){
     var h = window.location.hash.slice(1);
-    if (document.getElementById(h)) initialRoute = h;
+    if (ROUTES.indexOf(h) !== -1) initialRoute = h;
   }
   if (initialRoute){
     try { history.replaceState({ route: initialRoute }, '', routeBase() + initialRoute); } catch(e){}
-    setActiveNav(initialRoute);
-    setTimeout(function(){ scrollToRoute(initialRoute); }, 80);
+    showPage(initialRoute, true);
+  } else {
+    showPage('overview', true);
   }
 })();
 </script>
