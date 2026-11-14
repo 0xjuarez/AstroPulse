@@ -18,6 +18,10 @@
   --bad:#fc3d21; --bad-bg:#2a0f0b;
   --radius:3px;
   --gridline:rgba(120,145,180,.05);
+  /* Sticky stack heights — measured live by JS (topbar wraps on narrow screens) */
+  --topbar-h:60px;
+  --secnav-h:38px;
+  --sticky-offset:calc(var(--topbar-h) + var(--secnav-h) + 10px);
 }
 @media (prefers-color-scheme: light){
   :root{
@@ -80,13 +84,18 @@ button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid 
 .sec-head span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;text-align:right}
 
 /* ---------- Section blocks + clean-path routing ---------- */
-.sec-block{scroll-margin-top:86px;border-top:1px solid var(--line);margin-top:22px}
+.sec-block{scroll-margin-top:var(--sticky-offset);border-top:1px solid var(--line);margin-top:22px}
 .sec-block .sec-head{margin-top:12px}
-#crew,#checkinPanel,#actPanel,#station,#system,#references{scroll-margin-top:86px}
-.sec-nav{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap}
+#crew,#checkinPanel,#actPanel,#station,#system,#references{scroll-margin-top:var(--sticky-offset)}
+.sec-nav{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap;position:sticky;top:var(--topbar-h);z-index:19;box-shadow:0 8px 16px rgba(0,0,0,.30)}
 .sec-nav a{background:var(--panel);color:var(--muted);text-decoration:none;font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:9px 12px;flex:1 1 auto;text-align:center;white-space:nowrap}
 .sec-nav a:hover{color:var(--ink);background:var(--panel2)}
 .sec-nav a.on{color:var(--ink);box-shadow:inset 0 -2px 0 var(--red);background:var(--panel2)}
+@media(max-width:760px){
+  .sec-nav{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .sec-nav::-webkit-scrollbar{display:none}
+  .sec-nav a{flex:0 0 auto}
+}
 .sec-route{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.08em;text-decoration:none;white-space:nowrap}
 .sec-route:hover{color:var(--blue);text-decoration:underline}
 
@@ -376,6 +385,10 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 .refs span{color:var(--muted);flex:1;min-width:220px}
 .refs span strong{color:var(--ink)}
 .refs a{font-family:"IBM Plex Mono",monospace;font-size:11.5px;white-space:nowrap}
+.refs-group{padding:9px 12px 7px;border-bottom:1px solid var(--line);background:var(--panel2);font-family:"IBM Plex Mono",monospace;font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.refs-group b{color:var(--red)}
+.data-note{border-top:1px solid var(--line);padding:10px 12px;font-size:11.5px;line-height:1.6;color:var(--muted);font-family:"IBM Plex Mono",monospace;letter-spacing:.02em}
+.data-note b{color:var(--ink);letter-spacing:.12em;font-size:10px;text-transform:uppercase}
 .footer{margin-top:12px;border-top:1px solid var(--line);padding-top:12px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--faint);font-size:11px;line-height:1.7;font-family:"IBM Plex Mono",monospace;letter-spacing:.03em}
 .footer strong{color:var(--muted)}
 </style>
@@ -1008,6 +1021,18 @@ outbox   { pkg_id, type, bytes, state:
   <!-- ================= REFERENCES · /references ================= -->
   <section class="panel" id="references" style="margin-top:10px" aria-label="NASA data and references">
     <div class="panel-head"><h3>References · NASA Data &amp; Evidence</h3><span class="tag">OPEN DATA · SYNTHETIC STREAM CALIBRATED TO PUBLISHED RANGES</span></div>
+    <div class="refs-group"><b>Challenge Resources</b> · NASA Human Research Program</div>
+    <ul class="refs">
+      <li><span class="rf-tag">HRP · 5 HAZARDS</span><span><strong>5 Hazards of Human Spaceflight.</strong> NASA Human Research Program basics on the main hazards affecting humans on space missions: space radiation, isolation and confinement, distance from Earth, gravity, and hostile closed environments. Also provides links to detailed NASA articles and reports related to a specific hazard.</span><a href="https://www.nasa.gov/?p=553281" target="_blank" rel="noopener">nasa.gov/?p=553281</a></li>
+      <li><span class="rf-tag">HRP · RISKS</span><span><strong>Risks of Human Spaceflight.</strong> NASA Human Research Program basics on the specific human-health risks humans face on space missions, tied to the five hazards. Provides links to detailed NASA articles and reports related to a specific risk.</span><a href="https://www.nasa.gov/hrp/risks/" target="_blank" rel="noopener">nasa.gov/hrp/risks</a></li>
+    </ul>
+    <div class="refs-group"><b>Space Agency Partner Resources</b> · CSA — Canadian Space Agency</div>
+    <ul class="refs">
+      <li><span class="rf-tag">CSA · RADIATION</span><span><strong>How does radiation affect the human body in space?</strong> How the CSA helps monitor space radiation to better protect astronaut health during long-duration missions. Highlights Canadian technologies and research used to measure radiation exposure in space and improve understanding of its effects on the human body.</span><a href="https://www.asc-csa.gc.ca/eng/sciences/osm/radiation.asp/" target="_blank" rel="noopener">asc-csa.gc.ca</a></li>
+      <li><span class="rf-tag">CSA · ISS SCIENCE</span><span><strong>Why do we conduct science experiments in space?</strong> How the unique environment of space lets scientists run experiments that cannot be done on Earth, and how research aboard the International Space Station advances understanding of human health, technology and the universe — improving life on Earth while supporting future exploration missions.</span><a href="https://www.asc-csa.gc.ca/eng/iss/science/why-do-we-conduct-science-experiments-in-space.asp" target="_blank" rel="noopener">asc-csa.gc.ca</a></li>
+      <li><span class="rf-tag">CSA · MOSFET</span><span><strong>MOSFET radiation monitoring system and Matroshka-R.</strong> Canadian radiation monitoring system using MOSFET dosimeters.</span><a href="http://www.asc-csa.gc.ca/eng/sciences/osm/mosfet.asp" target="_blank" rel="noopener">asc-csa.gc.ca</a></li>
+    </ul>
+    <div class="refs-group"><b>Evidence Base</b> · Sources Already Cited by This Console</div>
     <ul class="refs">
       <li><span class="rf-tag">HRP · RIDGE</span><span><strong>NASA Human Research Program — The Human Body in Space.</strong> The five RIDGE hazards and the ~20-min one-way Mars delay that makes onboard decisions necessary.</span><a href="https://www.nasa.gov/humans-in-space/the-human-body-in-space" target="_blank" rel="noopener">nasa.gov</a></li>
       <li><span class="rf-tag">ANCHOR · HR+MOOD</span><span><strong>Inspiration4 (Jones et al., Nature 2024).</strong> Significant in-flight HR/HRV change (HR F=37.10, p&lt;0.0001) + 11-point mood/alertness survey — the anchor for pairing heart + mood vs a personal baseline. 3-day, n=4: it does not prove our thresholds.</span><a href="https://pubmed.ncbi.nlm.nih.gov/38862026/" target="_blank" rel="noopener">PubMed 38862026</a></li>
@@ -1015,6 +1040,7 @@ outbox   { pkg_id, type, bytes, state:
       <li><span class="rf-tag">WINNER PATTERN</span><span><strong>SpaceGenes+ (2025 Global Winner, Best Use of Science)</strong> — one dataset, one published rule, one decision. AstroPulse follows that shape: one question, one rule set, one action per alert.</span><a href="https://spacegenes-plus.framer.website/" target="_blank" rel="noopener">spacegenes-plus</a></li>
       <li><span class="rf-tag">CODE + DEMO</span><span><strong>Team repository</strong> — this console is one static file; code and live demo share one URL.</span><a href="https://github.com/0xjuarez/AstroPulse" target="_blank" rel="noopener">github.com/0xjuarez/AstroPulse</a></li>
     </ul>
+    <p class="data-note"><b>Data Use Note · </b>NASA does not endorse any non-US government entity and is not responsible for information contained on non-US government websites. For non-US government websites, participants must comply with that specific website's data-use parameters. Data on this page is used under each website's own data-use parameters.</p>
   </section>
 
   <div class="footer">
@@ -1756,10 +1782,29 @@ outbox   { pkg_id, type, bytes, state:
     var last = p.substring(p.lastIndexOf('/') + 1);
     return ROUTES.indexOf(last) !== -1 ? last : null;
   }
+  // ---------- Sticky section nav: pin it directly under the sticky topbar ----------
+  // The topbar wraps to a different height per viewport, so measure both bars live
+  // and feed the offsets the sticky position + scroll margins are built from.
+  function syncSticky(){
+    var tb = document.querySelector('.topbar');
+    var nv = document.querySelector('.sec-nav');
+    if (tb) document.documentElement.style.setProperty('--topbar-h', tb.offsetHeight + 'px');
+    if (nv) document.documentElement.style.setProperty('--secnav-h', nv.offsetHeight + 'px');
+  }
+  syncSticky();
+  window.addEventListener('resize', syncSticky);
+  window.addEventListener('load', syncSticky);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncSticky);
   function setActiveNav(route){
     document.querySelectorAll('.sec-nav a').forEach(function(a){
       a.classList.toggle('on', a.getAttribute('data-route') === route);
     });
+    // On narrow screens the bar scrolls sideways internally: bring the active section into view.
+    var nav = document.querySelector('.sec-nav');
+    var on = nav ? nav.querySelector('a.on') : null;
+    if (nav && on && nav.scrollWidth > nav.clientWidth){
+      nav.scrollTo({ left: on.offsetLeft - nav.clientWidth / 2 + on.offsetWidth / 2, behavior: 'smooth' });
+    }
   }
   function scrollToRoute(route){
     var el = document.getElementById(route);
