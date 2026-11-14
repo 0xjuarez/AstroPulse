@@ -73,21 +73,11 @@ button{min-height:40px}
 .live-btn:hover{border-color:var(--muted)}
 button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
-/* ---------- Mission brief strip ---------- */
-.brief{margin-top:2px}
-.brief-grid{display:grid;grid-template-columns:1.5fr repeat(3,.62fr);gap:1px;background:var(--line)}
-@media(max-width:1000px){.brief-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:520px){.brief-grid{grid-template-columns:1fr}}
-.brief-cell{background:var(--panel);padding:11px 13px}
-.brief-cell label{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--red);font-weight:700;display:block;font-family:"IBM Plex Mono",monospace}
-.brief-cell p{margin:5px 0 0;font-size:12.5px;line-height:1.55;color:var(--muted)}
-.brief-cell p strong{color:var(--ink)}
-.brief-cell .bv{font-family:"IBM Plex Mono",monospace;font-size:19px;font-weight:700;margin-top:4px}
-.brief-cell .bs{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5;font-family:"IBM Plex Mono",monospace}
-.brief-loop{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:9px 13px;border-top:1px solid var(--line);background:var(--panel2);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.05em}
-.brief-loop .bl-label{color:var(--faint);font-weight:700;letter-spacing:.14em;font-size:10px}
-.brief-loop .bl-step{color:var(--ink);border:1px solid var(--line);background:var(--panel);padding:4px 8px;white-space:nowrap}
-.brief-loop .bl-arrow{color:var(--red);font-weight:700}
+/* ---------- Section headers (page order) ---------- */
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:20px 0 8px;flex-wrap:wrap}
+.sec-head h2{margin:0;font-family:"IBM Plex Mono",monospace;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+.sec-head h2 .sec-num{color:var(--red);margin-right:9px}
+.sec-head span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase;text-align:right}
 
 /* ---------- Console toolbar ---------- */
 .toolbar{display:flex;align-items:stretch;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px;flex-wrap:wrap}
@@ -121,12 +111,12 @@ button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid 
 .crew-counters{display:flex;gap:14px;font-family:"IBM Plex Mono",monospace;font-size:11px}
 .crew-counters b{font-size:13px}
 
-/* ---------- Console grid ---------- */
-.console{display:grid;grid-template-columns:minmax(0,1fr) 400px;gap:10px;margin-top:10px;align-items:start}
-@media(max-width:1100px){.console{grid-template-columns:1fr}}
+/* ---------- Layout helpers ---------- */
 .col-stack{display:grid;gap:10px;align-content:start;min-width:0}
-.charts-row{display:grid;grid-template-columns:1.25fr .95fr;gap:10px}
+.charts-row{display:grid;grid-template-columns:1.25fr .95fr;gap:10px;align-items:start}
 @media(max-width:900px){.charts-row{grid-template-columns:1fr}}
+.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start}
+@media(max-width:1000px){.lower-grid{grid-template-columns:1fr}}
 
 /* ---------- Verdict panel ---------- */
 .status{border:1px solid var(--line);border-top:3px solid var(--ok);background:var(--panel);padding:14px 16px;display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
@@ -152,34 +142,62 @@ button:focus-visible, textarea:focus-visible, a:focus-visible{outline:2px solid 
 .why3 label{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;display:block;font-family:"IBM Plex Mono",monospace}
 .why3 p{margin:4px 0 0;font-size:12.5px;color:var(--ink);line-height:1.5;max-width:none}
 
-/* ---------- Telemetry ---------- */
-.hr-hero{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
-.hr-big{font-size:64px;line-height:.92;font-weight:700;letter-spacing:-.03em;font-family:"IBM Plex Mono",monospace}
-.hr-unit{font-size:11px;color:var(--muted);font-weight:600;padding-bottom:7px;font-family:"IBM Plex Mono",monospace;letter-spacing:.08em;text-transform:uppercase;line-height:1.7}
-.hr-context{margin-left:auto;text-align:right;padding-bottom:4px}
-.hr-context b{display:block;font-size:13px;font-family:"IBM Plex Mono",monospace;letter-spacing:.04em}
-.hr-context span{font-size:12px;color:var(--muted)}
-#ecg{width:100%;height:96px;display:block;margin-top:10px;background:#04070b;border:1px solid var(--line);border-radius:var(--radius)}
-@media (prefers-color-scheme: light){#ecg{background:#0a0e14}}
-.baseline-chip{display:inline-block;margin-top:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);border:1px solid var(--line);background:var(--panel2);padding:5px 9px;line-height:1.6}
+/* ---------- Six-indicator telemetry grid ---------- */
+.ind-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:900px){.ind-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.ind-grid{grid-template-columns:1fr}}
+.ind{background:var(--panel2);padding:12px 13px;border-top:3px solid var(--faint)}
+.ind.ok{border-top-color:var(--ok)}
+.ind.warn{border-top-color:var(--warn)}
+.ind.bad{border-top-color:var(--bad)}
+.ind-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ind-top label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;font-family:"IBM Plex Mono",monospace}
+.ind-chip{font-family:"IBM Plex Mono",monospace;font-size:9.5px;font-weight:700;letter-spacing:.1em;padding:3px 7px;border:1px solid;white-space:nowrap}
+.ind.ok .ind-chip{color:var(--ok);border-color:var(--ok);background:var(--ok-bg)}
+.ind.warn .ind-chip{color:var(--warn);border-color:var(--warn);background:var(--warn-bg)}
+.ind.bad .ind-chip{color:var(--bad);border-color:var(--bad);background:var(--bad-bg)}
+.ind-val{font-family:"IBM Plex Mono",monospace;font-size:34px;font-weight:700;line-height:1.1;margin-top:7px}
+.ind-val small{font-size:12px;color:var(--muted);font-weight:600;margin-left:5px;letter-spacing:.06em}
+.ind-sub{font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);margin-top:3px;line-height:1.55}
+.ind-sub b{color:var(--ink)}
+.ind-what{margin:8px 0 0;font-size:12px;line-height:1.55;color:var(--muted);border-top:1px dashed var(--line);padding-top:8px}
+.ind-what b{color:var(--ink)}
+.baseline-chip{display:block;margin-top:10px;font-family:"IBM Plex Mono",monospace;font-size:11px;color:var(--muted);border:1px solid var(--line);background:var(--panel2);padding:7px 10px;line-height:1.6}
 .baseline-chip b{color:var(--ink)}
-.vital-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-top:10px;background:var(--line);border:1px solid var(--line)}
-@media(max-width:560px){.vital-grid{grid-template-columns:repeat(2,1fr)} .hr-big{font-size:50px}}
+.vital-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;margin-top:10px;background:var(--line);border:1px solid var(--line)}
+@media(max-width:560px){.vital-grid{grid-template-columns:1fr}}
 .vital{background:var(--panel2);padding:10px 12px}
 .vital label{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;display:block;font-family:"IBM Plex Mono",monospace}
 .vital .v{font-size:21px;font-weight:700;margin-top:4px;font-family:"IBM Plex Mono",monospace}
 .vital .s{font-size:11px;color:var(--muted);margin-top:3px;font-family:"IBM Plex Mono",monospace}
 .trend-up{color:var(--ok)} .trend-down{color:var(--red)}
 
+/* ---------- Body map ---------- */
+.body-layout{display:grid;grid-template-columns:290px 1fr;gap:14px;align-items:start}
+@media(max-width:820px){.body-layout{grid-template-columns:1fr}}
+.body-svg-wrap{background:#04070b;border:1px solid var(--line);border-radius:var(--radius);padding:10px 6px}
+@media (prefers-color-scheme: light){.body-svg-wrap{background:#0a0e14}}
+.body-svg-wrap svg{width:100%;height:auto;display:block;max-height:440px}
+.fig-shape{fill:#10161f;stroke:#31435a;stroke-width:1.4}
+.bp-shape{cursor:pointer}
+.bp-shape .hot{fill:#0d1219;stroke:#647386;stroke-width:1.6}
+.bp-shape.sel .hot{fill:#12365e;stroke:var(--red);stroke-width:2.4}
+.bp-shape text{fill:#c7d2e0;font-family:"IBM Plex Mono",monospace;font-size:9px;font-weight:700;letter-spacing:.05em}
+.bp-shape:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.body-info{border:1px solid var(--line);background:var(--panel2);padding:13px 15px}
+.body-info h4{margin:0;font-size:16px}
+.body-info h4 span{font-family:"IBM Plex Mono",monospace;font-size:10.5px;color:var(--red);letter-spacing:.12em;margin-left:8px;text-transform:uppercase}
+.bi-row{margin-top:11px}
+.bi-row label{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:700;display:block;font-family:"IBM Plex Mono",monospace}
+.bi-row p{margin:4px 0 0;font-size:13px;line-height:1.6;color:var(--muted)}
+.bi-row p strong{color:var(--ink)}
+
 /* ---------- Charts ---------- */
+#ecg{width:100%;height:96px;display:block;margin-top:10px;background:#04070b;border:1px solid var(--line);border-radius:var(--radius)}
+@media (prefers-color-scheme: light){#ecg{background:#0a0e14}}
 #liveChart{width:100%;height:150px;display:block}
+#trendChart{width:100%;height:180px;display:block}
 .axis{display:flex;justify-content:space-between;font-size:10.5px;color:var(--faint);margin-top:6px;font-family:"IBM Plex Mono",monospace;letter-spacing:.06em}
-.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:2px;text-align:center}
-.day b{font-size:10px;color:var(--muted);display:block;letter-spacing:.08em;font-family:"IBM Plex Mono",monospace}
-.day .bar-wrap{height:64px;display:flex;align-items:flex-end;justify-content:center;margin:6px 0;border-bottom:1px solid var(--line)}
-.day .bar{width:18px;background:var(--blue)}
-.day .bar.low{background:var(--warn)} .day .bar.high{background:var(--red)}
-.day span{font-size:10.5px;font-family:"IBM Plex Mono",monospace;color:var(--muted);display:block;line-height:1.6}
 
 /* ---------- Alerts ---------- */
 .alerts-list{list-style:none;margin:0;padding:0}
@@ -222,13 +240,13 @@ textarea{width:100%;margin-top:13px;background:var(--panel2);border:1px solid va
 .checkin-done.show{display:block}
 .checkin-done.warnbox{background:var(--warn-bg);border-color:var(--warn)}
 
-/* ---------- Actions ---------- */
+/* ---------- Actions / reminders ---------- */
 .rec-list{list-style:none;margin:0;padding:0;display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}
 .rec-list li{display:flex;gap:11px;background:var(--panel2);padding:10px 11px;font-size:13px;line-height:1.5}
 .rec-code{font-family:"IBM Plex Mono",monospace;font-size:10.5px;font-weight:700;color:var(--blue);letter-spacing:.08em;flex:0 0 auto;padding-top:2px;min-width:52px}
 .rec-list b{display:block;font-size:13px}
 .rec-list span{color:var(--muted);font-size:12.5px}
-.rec-log{margin-left:auto;flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.1em;font-family:"IBM Plex Mono",monospace;padding:6px 10px;cursor:pointer;min-height:34px;border-radius:var(--radius);align-self:center;text-transform:uppercase}
+.rec-log{margin-left:auto;flex:0 0 auto;border:1px solid var(--line);background:var(--panel);color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.1em;font-family:"IBM Plex Mono",monospace;padding:6px 10px;cursor:pointer;min-height:34px;border-radius:var(--radius);align-self:center;text-transform:uppercase;white-space:nowrap}
 .rec-log.done{color:var(--ok);border-color:var(--ok);background:var(--ok-bg);cursor:default}
 
 /* ---------- Breathing control ---------- */
@@ -255,9 +273,7 @@ table.rules td.rs{font-family:"IBM Plex Mono",monospace;font-weight:700;white-sp
 .rule-state.on-green{color:var(--ok)}
 @media(max-width:760px){table.rules td.rd span.act{display:none} table.rules th:nth-child(4), table.rules td:nth-child(4){display:none}}
 
-/* ---------- Lower console rows ---------- */
-.lower-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;align-items:start}
-@media(max-width:1000px){.lower-grid{grid-template-columns:1fr}}
+/* ---------- System grids ---------- */
 .sys-grid{display:grid;grid-template-columns:1.3fr .9fr;gap:10px;margin-top:10px;align-items:start}
 @media(max-width:1000px){.sys-grid{grid-template-columns:1fr}}
 
@@ -384,44 +400,6 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
 
 <main class="wrap">
 
-  <!-- ================= MISSION BRIEF ================= -->
-  <section class="panel brief" aria-label="Mission brief">
-    <div class="panel-head">
-      <h3>Mission Brief · Health Monitoring Software for Astronauts</h3>
-      <span class="tag">NASA SPACE APPS 2026 · ONBOARD SELF-EVALUATION</span>
-    </div>
-    <div class="brief-grid">
-      <div class="brief-cell">
-        <label>The Problem</label>
-        <p>Long missions: <strong>radiation, isolation, altered gravity, hostile closed environment</strong>. Earth can be <strong>~20 min away by radio, one way</strong> — no doctor on board. Each astronaut must <strong>detect changes in their own health and act</strong>, on board, without waiting for the ground.</p>
-      </div>
-      <div class="brief-cell">
-        <label>Method</label>
-        <div class="bv">HR + MOOD</div>
-        <div class="bs">FUSED, NEVER JUDGED ALONE<br>VS OWN 7-DAY BASELINE</div>
-      </div>
-      <div class="brief-cell">
-        <label>Decision</label>
-        <div class="bv">R1–R5</div>
-        <div class="bs">5 PUBLISHED RULES<br>ONE VERDICT · ONE ACTION</div>
-      </div>
-      <div class="brief-cell">
-        <label>Comms</label>
-        <div class="bv">OFFLINE-1ST</div>
-        <div class="bs">SCORED ON BOARD<br>STORE-AND-FORWARD SYNC</div>
-      </div>
-    </div>
-    <div class="brief-loop">
-      <span class="bl-label">LOOP</span>
-      <span class="bl-step">WEARABLE · ECG 250 HZ</span><span class="bl-arrow">&gt;</span>
-      <span class="bl-step">PERSONAL BASELINE · 7 DAYS</span><span class="bl-arrow">&gt;</span>
-      <span class="bl-step">RULES R1–R5</span><span class="bl-arrow">&gt;</span>
-      <span class="bl-step">VERDICT + 1 ACTION</span><span class="bl-arrow">&gt;</span>
-      <span class="bl-step">OUTBOX</span><span class="bl-arrow">&gt;</span>
-      <span class="bl-step">FLIGHT SURGEON</span>
-    </div>
-  </section>
-
   <!-- ================= CONSOLE TOOLBAR ================= -->
   <div class="toolbar" id="consoleStart">
     <div class="tb-subject">
@@ -450,163 +428,261 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
     <div class="crew-strip" id="crewStrip"></div>
   </section>
 
-  <!-- ================= MAIN CONSOLE ================= -->
-  <div class="console">
-    <div class="col-stack">
+  <!-- ================= 01 · VERDICT ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">01</span>Am I OK Today — For Me?</h2>
+    <span>Self-verdict · HR + mood vs own 7-day baseline · rules R1–R5</span>
+  </div>
+  <div class="status ok" id="statusBanner" role="status">
+    <div class="status-code" id="statusCode">NOMINAL<small>VERDICT</small></div>
+    <div style="flex:1;min-width:260px">
+      <h2 id="statusTitle">Subject OK — cleared for duty</h2>
+      <p id="statusText">Heart rate and recovery match the subject's own usual pattern today.</p>
+      <div class="why3">
+        <div><label>What changed</label><p id="whyChanged">Nothing unusual in the last hour.</p></div>
+        <div><label>Why this verdict</label><p id="whyReason">Heart rate within ±1 SD of own baseline (rule R4).</p></div>
+        <div><label>What to do next</label><p id="whyNext">Continue duty. Exercise countermeasure at 16:00 UTC.</p></div>
+      </div>
+      <div class="rule" id="statusRule">RULE R4 · RECOVERY / STEADY STATE · NO ACTION REQUIRED</div>
+    </div>
+    <div class="status-right">
+      <div class="risk-num" id="riskNum">18<small>/100</small></div>
+      <div class="risk-label">Wellness Risk Index</div>
+    </div>
+  </div>
 
-      <!-- Verdict -->
-      <div class="status ok" id="statusBanner" role="status">
-        <div class="status-code" id="statusCode">NOMINAL<small>VERDICT</small></div>
-        <div style="flex:1;min-width:260px">
-          <h2 id="statusTitle">Subject OK — cleared for duty</h2>
-          <p id="statusText">Heart rate and recovery match the subject's own usual pattern today.</p>
-          <div class="why3">
-            <div><label>What changed</label><p id="whyChanged">Nothing unusual in the last hour.</p></div>
-            <div><label>Why this verdict</label><p id="whyReason">Heart rate within ±1 SD of own baseline (rule R4).</p></div>
-            <div><label>What to do next</label><p id="whyNext">Continue duty. Exercise countermeasure at 16:00 UTC.</p></div>
-          </div>
-          <div class="rule" id="statusRule">RULE R4 · RECOVERY / STEADY STATE · NO ACTION REQUIRED</div>
+  <!-- ================= 02 · SIX INDICATORS ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">02</span>Six Indicators · At a Glance</h2>
+    <span>Color code · green nominal · amber watch · red alert</span>
+  </div>
+  <section class="panel" aria-label="Six health indicators">
+    <div class="panel-head">
+      <h3>Telemetry · Subject Vitals · TLM-01</h3>
+      <button class="live-btn" id="pauseBtn">Hold Stream</button>
+    </div>
+    <div class="panel-body">
+      <div class="ind-grid">
+        <div class="ind ok" id="indBp">
+          <div class="ind-top"><label>Blood Pressure</label><span class="ind-chip">NOMINAL</span></div>
+          <div class="ind-val"><span id="vBp">118/76</span><small>MMHG</small></div>
+          <div class="ind-sub">Usual for you: <b>116/74</b> · cuff, seated, arm at heart level</div>
+          <p class="ind-what"><b>What it is:</b> the force of blood against vessel walls — top number when the heart beats, bottom when it rests. Sustained high readings strain the heart silently: a cardiovascular risk that builds without symptoms.</p>
         </div>
-        <div class="status-right">
-          <div class="risk-num" id="riskNum">18<small>/100</small></div>
-          <div class="risk-label">Wellness Risk Index</div>
+        <div class="ind ok" id="indHr">
+          <div class="ind-top"><label>Heart Rate</label><span class="ind-chip">NOMINAL</span></div>
+          <div class="ind-val"><span id="hrBig">76</span><small>BPM · RESTING</small></div>
+          <div class="ind-sub"><span id="hrVsBase">At usual level</span> · <span id="hrContext">NORMAL SINUS RHYTHM</span></div>
+          <div class="ind-sub" id="hrSub">No arrhythmia flags, last 60 s window</div>
+          <p class="ind-what"><b>What it is:</b> beats per minute at rest, from the chest wearable. Judged against <b>your own 7-day baseline</b>, never a generic table — a resting rise can mean strain, poor sleep, dehydration or early illness.</p>
+        </div>
+        <div class="ind ok" id="indGlu">
+          <div class="ind-top"><label>Blood Glucose</label><span class="ind-chip">NOMINAL</span></div>
+          <div class="ind-val"><span id="vGlucose">94</span><small>MG/DL</small></div>
+          <div class="ind-sub">Fasting range <b>70–99</b> · finger-stick at 06:30, before breakfast</div>
+          <p class="ind-what"><b>What it is:</b> sugar in your blood — your cells' fuel. Too low: shaky, sweaty, confused. Too high: thirsty, tired, slow healing. Stress, poor sleep and inactivity push it up.</p>
+        </div>
+        <div class="ind ok" id="indTemp">
+          <div class="ind-top"><label>Body Temperature</label><span class="ind-chip">NOMINAL</span></div>
+          <div class="ind-val"><span id="vTemp">36.7 °C</span></div>
+          <div class="ind-sub">Usual band <b>36.4–37.0 °C</b> · continuous sensor</div>
+          <p class="ind-what"><b>What it is:</b> core body temperature. A rise is often the <b>first sign of infection</b> — critical on long missions, where radiation and stress weaken the immune system.</p>
+        </div>
+        <div class="ind warn" id="indSleep">
+          <div class="ind-top"><label>Sleep · Last Period</label><span class="ind-chip">SHORT</span></div>
+          <div class="ind-val"><span id="vSleep">6.4</span><small>HOURS</small></div>
+          <div class="ind-sub">Target <b>7.0 h</b> · short by 0.6 h · actigraphy + self-report</div>
+          <p class="ind-what"><b>What it is:</b> hours slept in the last sleep period. Short sleep raises next-day resting heart rate, lowers mood and weakens immunity — it is the <b>first thing to fix</b> when other indicators drift.</p>
+        </div>
+        <div class="ind ok" id="indMood">
+          <div class="ind-top"><label>Mood · Today</label><span class="ind-chip">NOMINAL</span></div>
+          <div class="ind-val"><span id="vMood">3.4</span><small>/ 5 · SELF-RATING</small></div>
+          <div class="ind-sub" id="vMoodSub">Crew self-rating · daily check-in in section 05</div>
+          <p class="ind-what"><b>What it is:</b> your own 1–5 rating from the daily check-in. Mood is a real instrument here: isolation and confinement erode it slowly, and <b>falling mood + rising heart rate</b> is the pattern rule R2 exists to catch.</p>
         </div>
       </div>
+      <div class="vital-grid">
+        <div class="vital"><label>Also Tracked · HRV · RMSSD</label><div class="v" id="vHrv">58 ms</div><div class="s trend-up">RECOVERY: GOOD</div></div>
+        <div class="vital"><label>Also Tracked · SpO2</label><div class="v" id="vSpo2">98%</div><div class="s">LIMIT &gt; 95%</div></div>
+      </div>
+      <span class="baseline-chip" id="baselineChip">PERSONAL BASELINE (7-DAY): <b>68 BPM ± 4</b> · Alert line: <b>76 BPM</b> (+2 SD) · Computed from subject's first 7 days, updated nightly</span>
+    </div>
+  </section>
 
-      <!-- Telemetry -->
-      <div class="panel">
-        <div class="panel-head">
-          <h3>Telemetry · Subject Vitals · TLM-01</h3>
-          <button class="live-btn" id="pauseBtn">Hold Stream</button>
+  <!-- ================= 03 · BODY MAP ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">03</span>Body Map · Tap a System</h2>
+    <span>Function + current status per body system</span>
+  </div>
+  <section class="panel" aria-label="Clickable human figure">
+    <div class="panel-head">
+      <h3>Human Figure · Systems Under Mission Stress</h3>
+      <span class="tag">SELECT A MARKER OR A BUTTON</span>
+    </div>
+    <div class="panel-body">
+      <p class="note-line" style="margin:0 0 12px">Long-duration hazards — <strong style="color:var(--muted)">radiation, isolation &amp; confinement, altered gravity, hostile closed environment</strong> — drive four changes this console watches: <strong style="color:var(--muted)">immune changes, bone loss, cardiovascular events and behavioral-health problems</strong>. Select a system to see what it does, how it is doing right now, and what to watch for.</p>
+      <div class="body-layout">
+        <div class="body-svg-wrap">
+          <svg viewBox="0 0 200 300" role="img" aria-label="Front-view human figure with six selectable systems: brain, heart, lungs, immune system, muscle and bone">
+            <!-- silhouette -->
+            <circle class="fig-shape" cx="100" cy="26" r="15"/>
+            <rect class="fig-shape" x="94" y="40" width="12" height="8"/>
+            <rect class="fig-shape" x="76" y="46" width="48" height="88" rx="14"/>
+            <rect class="fig-shape" x="56" y="50" width="13" height="76" rx="6"/>
+            <rect class="fig-shape" x="131" y="50" width="13" height="76" rx="6"/>
+            <rect class="fig-shape" x="79" y="136" width="17" height="118" rx="7"/>
+            <rect class="fig-shape" x="104" y="136" width="17" height="118" rx="7"/>
+            <!-- hotspots -->
+            <g class="bp-shape" data-part="brain" tabindex="0" role="button" aria-label="Brain and behavioral health">
+              <circle class="hot" cx="100" cy="26" r="10"/>
+              <text x="118" y="29">BRAIN</text>
+            </g>
+            <g class="bp-shape" data-part="heart" tabindex="0" role="button" aria-label="Heart and cardiovascular system">
+              <circle class="hot" cx="89" cy="72" r="10"/>
+              <text x="30" y="75">HEART</text>
+            </g>
+            <g class="bp-shape" data-part="lungs" tabindex="0" role="button" aria-label="Lungs and oxygen exchange">
+              <circle class="hot" cx="112" cy="72" r="10"/>
+              <text x="130" y="75">LUNGS</text>
+            </g>
+            <g class="bp-shape" data-part="immune" tabindex="0" role="button" aria-label="Immune system">
+              <circle class="hot" cx="100" cy="106" r="10"/>
+              <text x="118" y="109">IMMUNE</text>
+            </g>
+            <g class="bp-shape" data-part="muscle" tabindex="0" role="button" aria-label="Muscles">
+              <circle class="hot" cx="62" cy="88" r="9"/>
+              <text x="8" y="91">MUSCLE</text>
+            </g>
+            <g class="bp-shape" data-part="bone" tabindex="0" role="button" aria-label="Bones and skeleton">
+              <circle class="hot" cx="88" cy="192" r="10"/>
+              <text x="30" y="195">BONE</text>
+            </g>
+          </svg>
         </div>
-        <div class="panel-body">
-          <div class="hr-hero">
-            <div class="hr-big" id="hrBig">76</div>
-            <div class="hr-unit">BPM · Live<br><span id="hrVsBase">At usual level</span></div>
-            <div class="hr-context">
-              <b id="hrContext">NORMAL SINUS RHYTHM</b>
-              <span id="hrSub">No arrhythmia flags, last 60 s window</span>
-            </div>
+        <div>
+          <div class="body-info" aria-live="polite">
+            <h4 id="bodyName">Heart — Cardiovascular<span>RULES R1 · R2 · R4</span></h4>
+            <div class="bi-row"><label>What it does</label><p id="bodyFunc">Pumps blood to every tissue. In altered gravity, fluid shifts toward the head and the heart works under a changed load.</p></div>
+            <div class="bi-row"><label>Current status</label><p id="bodyStatus">Resting HR 76 BPM vs own baseline 68 BPM · BP 118/76 mmHg.</p></div>
+            <div class="bi-row"><label>What to watch for</label><p id="bodyWatch">A resting heart rate climbing above baseline +2 SD — especially with low mood — is treated as a possible cardiovascular event in progress (rule R2), not as "just a bad day".</p></div>
           </div>
-          <canvas id="ecg" width="900" height="140" aria-label="Live electrocardiogram trace, lead II"></canvas>
-          <div class="baseline-chip" id="baselineChip">PERSONAL BASELINE (7-DAY): <b>68 BPM ± 4</b> · Alert line: <b>76 BPM</b> (+2 SD) · Computed from subject's first 7 days, updated nightly</div>
-          <div class="vital-grid">
-            <div class="vital"><label>HRV · RMSSD</label><div class="v" id="vHrv">58 ms</div><div class="s trend-up">RECOVERY: GOOD</div></div>
-            <div class="vital"><label>SpO2</label><div class="v" id="vSpo2">98%</div><div class="s">LIMIT &gt; 95%</div></div>
-            <div class="vital"><label>Core Temp</label><div class="v" id="vTemp">36.7 °C</div><div class="s">STABLE</div></div>
-            <div class="vital"><label>Sleep · Prev Period</label><div class="v" id="vSleep">6.4 h</div><div class="s trend-down">TARGET 7.0 H — SHORT</div></div>
+          <div class="mod-btns" role="group" aria-label="Body systems">
+            <button class="mod-btn bp-btn" type="button" data-part="brain">Brain</button>
+            <button class="mod-btn bp-btn sel" type="button" data-part="heart">Heart</button>
+            <button class="mod-btn bp-btn" type="button" data-part="lungs">Lungs</button>
+            <button class="mod-btn bp-btn" type="button" data-part="immune">Immune</button>
+            <button class="mod-btn bp-btn" type="button" data-part="muscle">Muscle</button>
+            <button class="mod-btn bp-btn" type="button" data-part="bone">Bone</button>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <!-- Charts row -->
-      <div class="charts-row">
-        <div class="panel">
-          <div class="panel-head">
-            <h3>Heart Rate · Last 5 Min · TLM-02</h3>
-            <span class="tag mono" id="chartRange">62 – 84 BPM</span>
-          </div>
-          <div class="panel-body">
-            <canvas id="liveChart" width="900" height="220" aria-label="Heart rate over the last five minutes"></canvas>
-            <div class="axis"><span>T-5 MIN</span><span>T-4</span><span>T-3</span><span>T-2</span><span>T-1</span><span>NOW</span></div>
-          </div>
-        </div>
-        <div class="panel">
-          <div class="panel-head">
-            <h3>7-Day Trend · TRD-01</h3>
-            <span class="tag">RESTING HR · MOOD</span>
-          </div>
-          <div class="panel-body">
-            <div class="days" id="daysRow"></div>
-            <p class="note-line">Resting HR +8 BPM this week while mood slipped — the early fatigue / isolation pattern (RIDGE I). Rules fire on the <strong style="color:var(--muted)">combination</strong>, never a single reading.</p>
-          </div>
-        </div>
+  <!-- ================= 04 · DYNAMIC CHARTS ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">04</span>Trends · How Indicators Change Over Time</h2>
+    <span>Live stream + 7-day history</span>
+  </div>
+  <div class="charts-row">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Heart Rate · Live · TLM-02</h3>
+        <span class="tag mono" id="chartRange">62 – 84 BPM</span>
       </div>
-
-      <!-- Rules -->
-      <div class="panel">
-        <div class="panel-head">
-          <h3>System Rules · R1–R5 · Live State</h3>
-          <span class="tag">DETERMINISTIC · NO BLACK BOX · VS PERSONAL BASELINE</span>
-        </div>
-        <table class="rules">
-          <thead><tr><th>Rule</th><th>Trigger — vs subject's own baseline</th><th>Status</th><th>Action issued</th><th>State</th></tr></thead>
-          <tbody>
-            <tr><td class="rid">R1</td><td class="rd">Resting HR above baseline mean + 2 SD, sustained</td><td class="rs amber">AMBER</td><td class="rd"><span class="act">Rest, slow breathing, re-check in 15 min</span></td><td><span class="rule-state" id="rs1">ARMED</span></td></tr>
-            <tr><td class="rid">R2</td><td class="rd">R1 <em>and</em> mood ≤ 2/5 today — heart and mood deteriorating together</td><td class="rs red">RED</td><td class="rd"><span class="act">Log symptoms, reduce workload, notify flight surgeon (queued until link returns)</span></td><td><span class="rule-state" id="rs2">ARMED</span></td></tr>
-            <tr><td class="rid">R3</td><td class="rd">Mood ≤ 2/5 for 2 days with heart rate normal</td><td class="rs amber">AMBER</td><td class="rd"><span class="act">Sleep / light / activity countermeasure, journal prompt, re-check tomorrow</span></td><td><span class="rule-state" id="rs3">ARMED</span></td></tr>
-            <tr><td class="rid">R4</td><td class="rd">HR back within ±1 SD of baseline and mood ≥ 3/5</td><td class="rs green">GREEN</td><td class="rd"><span class="act">"Back to your normal — continue mission"</span></td><td><span class="rule-state" id="rs4">ARMED</span></td></tr>
-            <tr><td class="rid">R5</td><td class="rd">No fresh heart data (stream held / sensor stale) or no check-in today</td><td class="rs grey">STALE</td><td class="rd"><span class="act">"Check wearable, log mood manually" — never green on missing data. Try HOLD STREAM on TLM-01.</span></td><td><span class="rule-state" id="rs5">ARMED</span></td></tr>
-          </tbody>
-        </table>
+      <div class="panel-body">
+        <canvas id="liveChart" width="900" height="220" aria-label="Heart rate over the last five minutes"></canvas>
+        <div class="axis"><span>T-5 MIN</span><span>T-4</span><span>T-3</span><span>T-2</span><span>T-1</span><span>NOW</span></div>
+        <canvas id="ecg" width="900" height="140" aria-label="Live electrocardiogram trace, lead II"></canvas>
       </div>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Indicator Trend · 7 Days · TRD-01</h3>
+        <span class="tag mono" id="trendLabel">RESTING HR · BPM</span>
+      </div>
+      <div class="panel-body">
+        <canvas id="trendChart" width="900" height="260" aria-label="Seven day trend chart for the selected indicator"></canvas>
+        <div class="mod-btns" role="group" aria-label="Trend indicator selector" style="margin-top:12px">
+          <button class="mod-btn trend-btn sel" type="button" data-ind="hr">Heart Rate</button>
+          <button class="mod-btn trend-btn" type="button" data-ind="bp">Blood Pressure</button>
+          <button class="mod-btn trend-btn" type="button" data-ind="glucose">Glucose</button>
+          <button class="mod-btn trend-btn" type="button" data-ind="temp">Temp</button>
+          <button class="mod-btn trend-btn" type="button" data-ind="sleep">Sleep</button>
+          <button class="mod-btn trend-btn" type="button" data-ind="mood">Mood</button>
+        </div>
+        <p class="note-line">One week of the subject, against the subject. Resting HR climbed +8 BPM while mood slipped — the early fatigue / isolation pattern (RIDGE I). Rules fire on the <strong style="color:var(--muted)">combination</strong>, never on a single reading.</p>
+      </div>
+    </div>
+  </div>
 
+  <!-- ================= 05 · TREATMENT & ACTIONS ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">05</span>Treatment Guide · Actions · Mission Routine</h2>
+    <span>What to do, when to measure, how to check in</span>
+  </div>
+
+  <section class="panel" aria-label="Mission routine reminders">
+    <div class="panel-head">
+      <h3>Mission Routine · Reminders · REM-01</h3>
+      <span class="tag">MEASUREMENTS + ACTIONS · BUILT INTO THE DAY</span>
+    </div>
+    <div class="panel-body">
+      <ul class="rec-list">
+        <li><div class="rec-code">06:30</div><div><b>Morning measurements — blood pressure + glucose</b><span>BP cuff seated, arm at heart level, after 5 quiet minutes. Glucose finger-stick before breakfast. Fasting, same-time readings are the ones that compare day to day.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+        <li><div class="rec-code">07:00</div><div><b>Daily check-in — 30 seconds</b><span>Rate mood, energy, stress and sleep quality 1–5 in CHK-01 below. This is where the mood indicator comes from; without it, the console only sees half of you.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+        <li><div class="rec-code">12:30</div><div><b>Midday re-check — only if a morning reading was amber or red</b><span>Repeat the flagged measurement once, same conditions. One odd reading is noise; two in a row are a signal the rules can act on.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+        <li><div class="rec-code">16:00</div><div><b>Exercise countermeasure — 30 minutes</b><span>Resistive device + cycle ergometer. One session treats four systems at once: heart, bone, muscle and mood. Skipping it is a health decision, not a rest day.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+        <li><div class="rec-code">21:30</div><div><b>Wind-down — protect tonight's sleep</b><span>Lights low, displays off, no caffeine after 14:00. Tonight's sleep sets tomorrow's heart-rate baseline, mood and immune strength.</span></div><button class="rec-log rem-btn" type="button">Done</button></li>
+      </ul>
+    </div>
+  </section>
+
+  <div class="lower-grid" style="margin-top:10px">
+    <!-- Check-in -->
+    <div class="panel" id="checkinPanel">
+      <div class="panel-head">
+        <h3>Daily Check-In · CHK-01</h3>
+        <span class="tag">30 SEC · SUBJECTIVE INPUT</span>
+      </div>
+      <div class="panel-body">
+        <p class="note-line" style="margin:0 0 6px">New to self-checks? Rate how you feel <strong style="color:var(--muted)">right now</strong>, 1–5. There are no wrong answers — the console compares you with <strong style="color:var(--muted)">your own last 7 days</strong>, never with another astronaut.</p>
+        <div class="scale-row" data-key="mood">
+          <div class="scale-top"><label>Mood</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Low</span><span>High</span></div>
+        </div>
+        <div class="scale-row" data-key="energy">
+          <div class="scale-top"><label>Energy</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Depleted</span><span>Full</span></div>
+        </div>
+        <div class="scale-row" data-key="stress">
+          <div class="scale-top"><label>Stress</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Low</span><span>Severe</span></div>
+        </div>
+        <div class="scale-row" data-key="sleepQ">
+          <div class="scale-top"><label>Sleep Quality</label><output>3 / 5</output></div>
+          <div class="scale-btns"></div>
+          <div class="scale-hint"><span>Fragmented</span><span>Restorative</span></div>
+        </div>
+        <textarea id="noteInput" placeholder="Free-text note for the medical officer — e.g. headache after EVA prep, homesick today"></textarea>
+        <button class="submit-btn" id="submitCheckin">Commit Check-In · Recompute Risk</button>
+        <div class="checkin-done" id="checkinDone" role="status"></div>
+      </div>
     </div>
 
     <div class="col-stack">
-
-      <!-- Alerts -->
-      <div class="panel">
-        <div class="panel-head">
-          <h3>Alerts · Open</h3>
-          <span class="tag">RULE + CREW + COMM</span>
-        </div>
-        <ul class="alerts-list" id="alertsList"></ul>
-      </div>
-
-      <!-- SYS-LOG -->
-      <div class="panel">
-        <div class="panel-head">
-          <h3>SYS-LOG · Onboard Processor</h3>
-          <span class="tag">STDOUT · RISK ENGINE</span>
-        </div>
-        <div class="panel-body">
-          <div class="logbox" id="logBox" aria-label="Live onboard processing log"></div>
-        </div>
-      </div>
-
-      <!-- Check-in -->
-      <div class="panel" id="checkinPanel">
-        <div class="panel-head">
-          <h3>Daily Check-In · CHK-01</h3>
-          <span class="tag">30 SEC · SUBJECTIVE INPUT</span>
-        </div>
-        <div class="panel-body">
-          <div class="scale-row" data-key="mood">
-            <div class="scale-top"><label>Mood</label><output>3 / 5</output></div>
-            <div class="scale-btns"></div>
-            <div class="scale-hint"><span>Low</span><span>High</span></div>
-          </div>
-          <div class="scale-row" data-key="energy">
-            <div class="scale-top"><label>Energy</label><output>3 / 5</output></div>
-            <div class="scale-btns"></div>
-            <div class="scale-hint"><span>Depleted</span><span>Full</span></div>
-          </div>
-          <div class="scale-row" data-key="stress">
-            <div class="scale-top"><label>Stress</label><output>3 / 5</output></div>
-            <div class="scale-btns"></div>
-            <div class="scale-hint"><span>Low</span><span>Severe</span></div>
-          </div>
-          <div class="scale-row" data-key="sleepQ">
-            <div class="scale-top"><label>Sleep Quality</label><output>3 / 5</output></div>
-            <div class="scale-btns"></div>
-            <div class="scale-hint"><span>Fragmented</span><span>Restorative</span></div>
-          </div>
-          <textarea id="noteInput" placeholder="Free-text note for the medical officer — e.g. headache after EVA prep, homesick today"></textarea>
-          <button class="submit-btn" id="submitCheckin">Commit Check-In · Recompute Risk</button>
-          <div class="checkin-done" id="checkinDone" role="status"></div>
-        </div>
-      </div>
-
       <!-- Actions -->
       <div class="panel" id="actPanel">
         <div class="panel-head">
           <h3>Directed Actions · ACT-01</h3>
-          <span class="tag">RULE-BASED · EXPLAINABLE</span>
+          <span class="tag">TREATMENT GUIDANCE · RULE-BASED</span>
         </div>
         <div class="panel-body">
           <ul class="rec-list" id="recList"></ul>
-          <p class="note-line">Every action traces to rules R1–R5 vs the subject's own baseline. LOG IT appends the action to the onboard record and packages it for the flight surgeon; red conditions ship as alert packages on the next link.</p>
+          <p class="note-line">Every action traces to rules R1–R5 vs the subject's own baseline — this is the treatment guidance for today's verdict. LOG IT appends the action to the onboard record and packages it for the flight surgeon; red conditions ship as alert packages on the next link.</p>
         </div>
       </div>
 
@@ -629,11 +705,60 @@ table.api td .code{font-family:"IBM Plex Mono",monospace;color:var(--ok);font-si
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ================= HABITAT + RIDGE ================= -->
+  <!-- ================= 06 · RULES R1–R5 ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">06</span>Decision Rules · R1–R5</h2>
+    <span>Deterministic · no black box · vs personal baseline</span>
+  </div>
+  <section class="panel" aria-label="Decision rules R1 to R5">
+    <div class="panel-head">
+      <h3>System Rules · Live State</h3>
+      <span class="tag">ARMED = WATCHING · ACTIVE = FIRED</span>
+    </div>
+    <table class="rules">
+      <thead><tr><th>Rule</th><th>Trigger — vs subject's own baseline</th><th>Status</th><th>Action issued</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td class="rid">R1</td><td class="rd">Resting HR above baseline mean + 2 SD, sustained</td><td class="rs amber">AMBER</td><td class="rd"><span class="act">Rest, slow breathing, re-check in 15 min</span></td><td><span class="rule-state" id="rs1">ARMED</span></td></tr>
+        <tr><td class="rid">R2</td><td class="rd">R1 <em>and</em> mood ≤ 2/5 today — heart and mood deteriorating together</td><td class="rs red">RED</td><td class="rd"><span class="act">Log symptoms, reduce workload, notify flight surgeon (queued until link returns)</span></td><td><span class="rule-state" id="rs2">ARMED</span></td></tr>
+        <tr><td class="rid">R3</td><td class="rd">Mood ≤ 2/5 for 2 days with heart rate normal</td><td class="rs amber">AMBER</td><td class="rd"><span class="act">Sleep / light / activity countermeasure, journal prompt, re-check tomorrow</span></td><td><span class="rule-state" id="rs3">ARMED</span></td></tr>
+        <tr><td class="rid">R4</td><td class="rd">HR back within ±1 SD of baseline and mood ≥ 3/5</td><td class="rs green">GREEN</td><td class="rd"><span class="act">"Back to your normal — continue mission"</span></td><td><span class="rule-state" id="rs4">ARMED</span></td></tr>
+        <tr><td class="rid">R5</td><td class="rd">No fresh heart data (stream held / sensor stale) or no check-in today</td><td class="rs grey">STALE</td><td class="rd"><span class="act">"Check wearable, log mood manually" — never green on missing data. Try HOLD STREAM on TLM-01.</span></td><td><span class="rule-state" id="rs5">ARMED</span></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ================= 07 · ALERTS + SYS-LOG ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">07</span>Alerts · SYS-LOG</h2>
+    <span>Open alerts + onboard processor output</span>
+  </div>
+  <div class="lower-grid">
+    <div class="panel">
+      <div class="panel-head">
+        <h3>Alerts · Open</h3>
+        <span class="tag">RULE + CREW + COMM</span>
+      </div>
+      <ul class="alerts-list" id="alertsList"></ul>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h3>SYS-LOG · Onboard Processor</h3>
+        <span class="tag">STDOUT · RISK ENGINE</span>
+      </div>
+      <div class="panel-body">
+        <div class="logbox" id="logBox" aria-label="Live onboard processing log"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ONBOARD CONTEXT (SECONDARY) ================= -->
+  <div class="sec-head">
+    <h2><span class="sec-num">+</span>Onboard Context</h2>
+    <span>Habitat · hazards · station · system · evidence</span>
+  </div>
   <div class="lower-grid">
     <section class="panel" aria-label="Habitat telemetry">
       <div class="panel-head"><h3>Habitat Telemetry · ENV-01</h3><span class="tag" style="color:var(--warn)">SYNTHETIC DEMO VALUES</span></div>
@@ -845,6 +970,7 @@ outbox   { pkg_id, type, bytes, state:
     live: true,
     link: 'live',
     hr: 76, hrv: 58, spo2: 98, temp: 36.7,
+    bpSys: 118, bpDia: 76, glucose: 94,
     hrTarget: null,
     history: [],
     readings: [],
@@ -957,6 +1083,7 @@ outbox   { pkg_id, type, bytes, state:
     var m = selectedCrew;
     state.hrTarget = m.base.mean + 5;
     state.hrv = m.hrv; state.spo2 = m.spo2;
+    state.bpSys = 118; state.bpDia = 76; state.glucose = 94;
     state.checkin = { mood:4, energy:4, stress:2, sleepQ:4 };
     state.submitted = true;
     syncCheckinUI(); renderVitals(); renderStatus(); drawChart();
@@ -966,6 +1093,7 @@ outbox   { pkg_id, type, bytes, state:
     var m = selectedCrew;
     state.hrTarget = Math.min(96, m.base.mean + 25);
     state.hrv = 33; state.spo2 = 96;
+    state.bpSys = 138; state.bpDia = 88; state.glucose = 151;
     state.checkin = { mood:2, energy:2, stress:5, sleepQ:2 };
     state.submitted = true;
     syncCheckinUI(); renderVitals(); renderStatus(); drawChart();
@@ -998,7 +1126,7 @@ outbox   { pkg_id, type, bytes, state:
   }
   $('exportJson').addEventListener('click', function(){
     var payload = { exported_utc: new Date().toISOString(), subject: selectedCrew.name, baseline: selectedCrew.base,
-      checkin: state.checkin, current: { hr_bpm: state.hr, hrv_ms: state.hrv, spo2_pct: state.spo2 },
+      checkin: state.checkin, current: { hr_bpm: state.hr, hrv_ms: state.hrv, spo2_pct: state.spo2, bp: state.bpSys + '/' + state.bpDia, glucose_mg_dl: state.glucose },
       outbox: state.outbox, readings: state.readings, note: 'AstroPulse prototype \u00B7 synthetic demo data \u00B7 not a medical device' };
     download('astropulse-records.json', JSON.stringify(payload, null, 2), 'application/json');
     log('OK','export \u00B7 records JSON downloaded by operator \u00B7 data never left this device');
@@ -1015,6 +1143,8 @@ outbox   { pkg_id, type, bytes, state:
     if (state.hr > 80) risk += 14; else if (state.hr > 76) risk += 7;
     if (state.hrv < 45) risk += 14; else if (state.hrv < 52) risk += 7;
     if (state.spo2 < 97) risk += 10;
+    if (state.bpSys >= 135) risk += 8;
+    if (state.glucose > 140) risk += 6;
     var c = state.checkin;
     risk += (3 - c.mood) * 5;
     risk += (3 - c.energy) * 3;
@@ -1154,7 +1284,23 @@ outbox   { pkg_id, type, bytes, state:
     });
   }
 
-  // ---------- Vitals ----------
+  // ---------- Vitals + six-indicator color coding ----------
+  function setInd(id, cls, chip){
+    var el = $(id); if(!el) return;
+    el.classList.remove('ok','warn','bad');
+    el.classList.add(cls);
+    el.querySelector('.ind-chip').textContent = chip;
+  }
+  function renderIndicators(){
+    var base = selectedCrew.base;
+    var dev = (state.hr - base.mean) / base.sd;
+    setInd('indHr', dev > 2 ? 'bad' : (dev > 1 ? 'warn' : 'ok'), dev > 2 ? 'ALERT' : (dev > 1 ? 'WATCH' : 'NOMINAL'));
+    setInd('indBp', state.bpSys >= 140 ? 'bad' : (state.bpSys >= 130 ? 'warn' : 'ok'), state.bpSys >= 140 ? 'ALERT' : (state.bpSys >= 130 ? 'WATCH' : 'NOMINAL'));
+    setInd('indGlu', (state.glucose > 140 || state.glucose < 70) ? 'warn' : 'ok', (state.glucose > 140 || state.glucose < 70) ? 'CHECK' : 'NOMINAL');
+    setInd('indTemp', (state.temp >= 37.3 || state.temp < 36.1) ? 'warn' : 'ok', (state.temp >= 37.3 || state.temp < 36.1) ? 'WATCH' : 'NOMINAL');
+    var mv = state.submitted ? state.checkin.mood : selectedCrew.mood;
+    setInd('indMood', mv < 2 ? 'bad' : (mv < 3 ? 'warn' : 'ok'), mv < 2 ? 'LOW' : (mv < 3 ? 'WATCH' : 'NOMINAL'));
+  }
   function renderVitals(){
     $('hrBig').textContent = state.hr;
     var base = selectedCrew.base, delta = state.hr - base.mean;
@@ -1163,11 +1309,17 @@ outbox   { pkg_id, type, bytes, state:
     $('vHrv').textContent = state.hrv + ' ms';
     $('vSpo2').textContent = state.spo2 + '%';
     $('vTemp').textContent = state.temp.toFixed(1) + ' °C';
+    $('vBp').textContent = state.bpSys + '/' + state.bpDia;
+    $('vGlucose').textContent = state.glucose;
+    var mv = state.submitted ? state.checkin.mood : selectedCrew.mood;
+    $('vMood').textContent = mv.toFixed(1);
+    $('vMoodSub').textContent = state.submitted ? 'From today\u2019s check-in \u00B7 committed in CHK-01' : 'Crew self-rating \u00B7 today\u2019s check-in still pending (REM-01 \u00B7 07:00)';
     var lo = Math.min.apply(null, state.history), hi = Math.max.apply(null, state.history);
     $('chartRange').textContent = lo + ' \u2013 ' + hi + ' BPM';
     if (state.hr > 84){ $('hrContext').textContent='ELEVATED FOR REST'; $('hrSub').textContent='Sustained elevation — trend under watch'; }
     else if (state.hr < 60){ $('hrContext').textContent='LOW · STEADY'; $('hrSub').textContent='Consistent with athletic adaptation'; }
     else { $('hrContext').textContent='NORMAL SINUS RHYTHM'; $('hrSub').textContent='No arrhythmia flags, last 60 s window'; }
+    renderIndicators();
   }
 
   // ---------- ECG canvas ----------
@@ -1235,20 +1387,121 @@ outbox   { pkg_id, type, bytes, state:
     ctx.beginPath(); ctx.arc(lx,ly,4.5,0,Math.PI*2); ctx.fillStyle='#fc3d21'; ctx.fill();
   }
 
-  // ---------- 7-day trend ----------
-  var days = [
-    {d:'SOL 136', hr:68, mood:4.4}, {d:'SOL 137', hr:69, mood:4.1}, {d:'SOL 138', hr:71, mood:3.9},
-    {d:'SOL 139', hr:70, mood:4.0}, {d:'SOL 140', hr:73, mood:3.5}, {d:'SOL 141', hr:75, mood:3.2}, {d:'SOL 142', hr:76, mood:3.4}
-  ];
-  function renderDays(){
-    var html='';
-    days.forEach(function(day){
-      var h = 18 + (day.hr-64)*3.4;
-      var cls = day.hr>=75 ? 'high' : (day.hr>=73 ? 'low' : '');
-      html += '<div class="day"><b>'+day.d+'</b><div class="bar-wrap"><div class="bar '+cls+'" style="height:'+h+'px"></div></div><span>'+day.hr+' BPM</span><span>MOOD '+day.mood.toFixed(1)+'</span></div>';
+  // ---------- 7-day dynamic trend chart (per indicator) ----------
+  var trendDays = ['SOL 136','SOL 137','SOL 138','SOL 139','SOL 140','SOL 141','SOL 142'];
+  var trendData = {
+    hr:      { label:'RESTING HR · BPM',        unit:'',      fmt:function(v){ return v + ' BPM'; }, vals:[68,69,71,70,73,75,76],    base:68,  alert:76,  baseLabel:'BASELINE 68',  alertLabel:'ALERT +2 SD · 76' },
+    bp:      { label:'SYSTOLIC BP · MMHG',      unit:'',      fmt:function(v){ return v + ' mmHg'; }, vals:[116,118,117,119,121,120,118], alert:130, alertLabel:'WATCH LINE · 130' },
+    glucose: { label:'BLOOD GLUCOSE · MG/DL',   unit:'',      fmt:function(v){ return v + ' mg/dL'; }, vals:[91,95,93,97,94,99,96],    alert:140, alertLabel:'HIGH LINE · 140' },
+    temp:    { label:'CORE TEMP · °C',          unit:'',      fmt:function(v){ return v.toFixed(1) + ' °C'; }, vals:[36.6,36.7,36.6,36.8,36.7,36.7,36.7], alert:37.3, alertLabel:'FEVER WATCH · 37.3' },
+    sleep:   { label:'SLEEP · HOURS / PERIOD',  unit:'',      fmt:function(v){ return v.toFixed(1) + ' h'; }, vals:[7.2,7.0,6.8,7.1,6.6,6.5,6.4], base:7.0, baseLabel:'TARGET 7.0 H' },
+    mood:    { label:'MOOD · SELF-RATING / 5',  unit:'',      fmt:function(v){ return v.toFixed(1) + ' / 5'; }, vals:[4.4,4.1,3.9,4.0,3.5,3.2,3.4], alert:2.0, alertLabel:'R3 LINE · 2.0' }
+  };
+  function drawTrend(key){
+    var d = trendData[key]; if(!d) return;
+    $('trendLabel').textContent = d.label;
+    document.querySelectorAll('.trend-btn').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-ind')===key); });
+    var cv = $('trendChart'); if(!cv) return;
+    var ctx = cv.getContext('2d');
+    var W=cv.width, H=cv.height, padL=16, padR=16, padT=26, padB=30;
+    ctx.clearRect(0,0,W,H);
+    var vals = d.vals.slice();
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    if (d.base !== undefined){ lo = Math.min(lo, d.base); hi = Math.max(hi, d.base); }
+    if (d.alert !== undefined){ lo = Math.min(lo, d.alert); hi = Math.max(hi, d.alert); }
+    var span = (hi - lo) || 1; lo -= span*0.3; hi += span*0.3;
+    function xOf(i){ return padL + i/(vals.length-1)*(W-padL-padR); }
+    function yOf(v){ return H-padB - (v-lo)/(hi-lo)*(H-padT-padB); }
+    ctx.strokeStyle='rgba(120,145,180,0.16)'; ctx.lineWidth=1;
+    ctx.fillStyle='rgba(140,155,180,0.9)'; ctx.font='11px "IBM Plex Mono", monospace';
+    for (var g=0; g<=2; g++){
+      var gv = lo + (hi-lo)*g/2, gy = yOf(gv);
+      ctx.beginPath(); ctx.moveTo(padL,gy); ctx.lineTo(W-padR,gy); ctx.stroke();
+    }
+    if (d.base !== undefined){
+      ctx.setLineDash([5,4]); ctx.strokeStyle='rgba(52,196,124,0.65)';
+      ctx.beginPath(); ctx.moveTo(padL,yOf(d.base)); ctx.lineTo(W-padR,yOf(d.base)); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle='rgba(52,196,124,0.95)'; ctx.font='10px "IBM Plex Mono", monospace';
+      ctx.fillText(d.baseLabel, W-padR-150, yOf(d.base)-5);
+    }
+    if (d.alert !== undefined){
+      ctx.setLineDash([5,4]); ctx.strokeStyle='rgba(252,61,33,0.65)';
+      ctx.beginPath(); ctx.moveTo(padL,yOf(d.alert)); ctx.lineTo(W-padR,yOf(d.alert)); ctx.stroke(); ctx.setLineDash([]);
+      ctx.fillStyle='rgba(252,61,33,0.95)'; ctx.font='10px "IBM Plex Mono", monospace';
+      ctx.fillText(d.alertLabel, W-padR-170, yOf(d.alert)-5);
+    }
+    ctx.beginPath();
+    vals.forEach(function(v,i){ var x=xOf(i), y=yOf(v); if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); });
+    ctx.strokeStyle='#2f6fd0'; ctx.lineWidth=2.6; ctx.stroke();
+    ctx.lineTo(xOf(vals.length-1), H-padB); ctx.lineTo(xOf(0), H-padB); ctx.closePath();
+    ctx.fillStyle='rgba(47,111,208,0.10)'; ctx.fill();
+    ctx.font='11px "IBM Plex Mono", monospace';
+    vals.forEach(function(v,i){
+      var x=xOf(i), y=yOf(v);
+      ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fillStyle= (i===vals.length-1) ? '#fc3d21' : '#2f6fd0'; ctx.fill();
+      ctx.fillStyle='rgba(233,237,243,0.85)';
+      ctx.fillText(d.fmt(v), x-16, y-10);
+      ctx.fillStyle='rgba(140,155,180,0.9)';
+      ctx.fillText(trendDays[i], x-22, H-10);
     });
-    $('daysRow').innerHTML = html;
   }
+  document.querySelectorAll('.trend-btn').forEach(function(b){
+    b.addEventListener('click', function(){ drawTrend(b.getAttribute('data-ind')); });
+  });
+
+  // ---------- Body map : clickable human figure ----------
+  var bodyParts = {
+    brain: { name:'Brain — Behavioral Health', tag:'RIDGE · ISOLATION',
+      func:'Controls mood, thinking, memory and the sleep\u2013wake cycle. It is the system that feels confinement and isolation first.',
+      status:function(){ var mv = state.submitted ? state.checkin.mood : selectedCrew.mood; return 'Mood ' + mv + '/5 \u00B7 stress ' + state.checkin.stress + '/5 \u00B7 sleep 6.4 h last period (target 7.0 h).'; },
+      watch:'Falling mood, broken sleep and withdrawal from the crew are the early signs of a behavioral-health problem \u2014 which is why mood is one of the six indicators and is checked every day, not when it becomes a crisis.' },
+    heart: { name:'Heart — Cardiovascular', tag:'RULES R1 \u00B7 R2 \u00B7 R4',
+      func:'Pumps blood to every tissue. In altered gravity, fluid shifts toward the head and the heart works under a changed load, with less daily demand from walking.',
+      status:function(){ return 'Resting HR ' + state.hr + ' BPM vs own baseline ' + selectedCrew.base.mean + ' BPM \u00B7 BP ' + state.bpSys + '/' + state.bpDia + ' mmHg \u00B7 HRV ' + state.hrv + ' ms.'; },
+      watch:'A resting heart rate above baseline +2 SD \u2014 especially together with low mood \u2014 is treated as a possible cardiovascular event in progress (rule R2), never dismissed as "just a bad day".' },
+    lungs: { name:'Lungs — Oxygen Exchange', tag:'ENV \u00B7 CLOSED HABITAT',
+      func:'Move oxygen into the blood and CO2 out of it. Inside a sealed habitat they depend entirely on life-support scrubbers \u2014 there is no outside air.',
+      status:function(){ return 'SpO2 ' + state.spo2 + '% (limit > 95%) \u00B7 cabin CO2 nominal on ENV-01.'; },
+      watch:'Falling SpO2 or rising cabin CO2 appears first as headache, poor sleep and a rising resting heart rate \u2014 before it ever feels like "trouble breathing".' },
+    immune: { name:'Immune System', tag:'RIDGE \u00B7 RADIATION',
+      func:'Defends against bacteria and viruses and repairs damaged tissue. Space radiation and chronic stress suppress it on long missions, and dormant viruses can reactivate.',
+      status:function(){ return 'Core temp ' + state.temp.toFixed(1) + ' \u00B0C \u00B7 no fever \u00B7 no infection flags today.'; },
+      watch:'Immune changes are silent. Watch the temperature indicator for fever, note slow-healing cuts or cold sores in the check-in free-text, and report them the same day \u2014 do not wait for the weekly review.' },
+    muscle: { name:'Muscles — Arms & Legs', tag:'COUNTERMEASURE \u00B7 DAILY',
+      func:'Movement, posture and balance \u2014 and one of the body\u2019s biggest users of blood glucose. Unloaded in microgravity, muscle wastes within weeks.',
+      status:function(){ return 'Exercise countermeasure scheduled 16:00 UTC (REM-01) \u00B7 resistive device + cycle, 30 min \u00B7 glucose ' + state.glucose + ' mg/dL.'; },
+      watch:'Muscle loss shows up as weakness, worse balance and poorer glucose control. Daily resistive exercise is the treatment \u2014 there is no passive substitute on board.' },
+    bone: { name:'Bones — Skeleton', tag:'RIDGE \u00B7 GRAVITY',
+      func:'Support the body and store calcium. Without gravity loading, bone is broken down faster than it is rebuilt \u2014 about 1% of density per month in weightlessness without countermeasures.',
+      status:function(){ return 'Not wearable-measured: tracked through the exercise log and scheduled density scans. Today\u2019s countermeasure is logged in REM-01.'; },
+      watch:'Bone loss is painless until return to gravity turns it into fracture risk. Exercise plus nutrition are the onboard treatment; the trend is reviewed weekly with the flight surgeon.' }
+  };
+  function selectPart(key){
+    var p = bodyParts[key]; if(!p) return;
+    $('bodyName').innerHTML = p.name + '<span>' + p.tag + '</span>';
+    $('bodyFunc').textContent = p.func;
+    $('bodyStatus').textContent = p.status();
+    $('bodyWatch').textContent = p.watch;
+    document.querySelectorAll('.bp-btn').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-part')===key); });
+    document.querySelectorAll('.bp-shape').forEach(function(s){ s.classList.toggle('sel', s.getAttribute('data-part')===key); });
+  }
+  document.querySelectorAll('.bp-btn').forEach(function(b){ b.addEventListener('click', function(){ selectPart(b.getAttribute('data-part')); }); });
+  document.querySelectorAll('.bp-shape').forEach(function(s){
+    if (s.getAttribute('data-part')==='heart') s.classList.add('sel');
+    s.addEventListener('click', function(){ selectPart(s.getAttribute('data-part')); });
+    s.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectPart(s.getAttribute('data-part')); } });
+  });
+
+  // ---------- Routine reminders : mark done ----------
+  document.querySelectorAll('.rem-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (btn.classList.contains('done')) return;
+      btn.classList.add('done'); btn.textContent='Done';
+      var item = btn.closest('li').querySelector('b').textContent;
+      log('OK','routine \u00B7 reminder completed \u00B7 "' + item + '"');
+      pushPkg('reminder-log', 420);
+    });
+  });
 
   // ---------- Check-in scales ----------
   document.querySelectorAll('.scale-row').forEach(function(row){
@@ -1319,6 +1572,8 @@ outbox   { pkg_id, type, bytes, state:
     if (Math.random()<0.25) state.hrv = Math.max(30, Math.min(78, state.hrv + Math.round(Math.random()*4-2)));
     if (Math.random()<0.12) state.spo2 = Math.max(95, Math.min(99, state.spo2 + (Math.random()<0.5?-1:1)));
     if (Math.random()<0.15) state.temp = Math.round((state.temp + (Math.random()*0.2-0.1))*10)/10;
+    if (Math.random()<0.10) state.bpSys = Math.max(108, Math.min(146, state.bpSys + Math.round(Math.random()*2-1)));
+    if (Math.random()<0.10) state.glucose = Math.max(82, Math.min(160, state.glucose + Math.round(Math.random()*4-2)));
     state.history.push(state.hr); state.history.shift();
     renderVitals(); drawChart();
     var roll = Math.random();
@@ -1379,10 +1634,10 @@ outbox   { pkg_id, type, bytes, state:
     var m = modules[key]; if(!m) return;
     $('modName').innerHTML = m.name + '<span>' + m.tag + '</span>';
     $('modText').innerHTML = m.text;
-    document.querySelectorAll('.mod-btn').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-mod')===key); });
+    document.querySelectorAll('.mod-btn[data-mod]').forEach(function(b){ b.classList.toggle('sel', b.getAttribute('data-mod')===key); });
     document.querySelectorAll('.mod-shape').forEach(function(s){ s.classList.toggle('sel', s.getAttribute('data-mod')===key); });
   }
-  document.querySelectorAll('.mod-btn').forEach(function(b){ b.addEventListener('click', function(){ selectModule(b.getAttribute('data-mod')); }); });
+  document.querySelectorAll('.mod-btn[data-mod]').forEach(function(b){ b.addEventListener('click', function(){ selectModule(b.getAttribute('data-mod')); }); });
   document.querySelectorAll('.mod-shape').forEach(function(s){
     s.addEventListener('click', function(){ selectModule(s.getAttribute('data-mod')); });
     s.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); selectModule(s.getAttribute('data-mod')); } });
@@ -1429,7 +1684,7 @@ outbox   { pkg_id, type, bytes, state:
   });
 
   // ---------- Init ----------
-  renderVitals(); renderStatus(); renderDays(); renderCrew(); drawECG(); drawChart();
+  renderVitals(); renderStatus(); renderCrew(); drawECG(); drawChart(); drawTrend('hr'); selectPart('heart');
 })();
 </script>
 </body>
