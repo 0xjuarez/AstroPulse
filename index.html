@@ -1401,7 +1401,7 @@ outbox   { pkg_id, type, bytes, state:
     var roll = Math.random();
     if (roll < 0.42) log('TLM','frame #'+state.seq+' · hr='+state.hr+' hrv='+state.hrv+' spo2='+state.spo2+' · crc ok · stored local');
     else if (roll < 0.62) log('DSP','rr intervals n=64 · rmssd='+state.hrv+' ms · artifacts rejected '+(Math.floor(Math.random()*3)));
-    else if (roll < 0.78) log('OK','risk eval · index='+computeRisk()+' · band '+(computeRisk()>=55?'ACT':(computeRisk()>=32?'WATCH':'NOMINAL')));
+    else if (roll < 0.78){ var riskEval = computeRisk(); var bandEval = evaluateRules().band; var bandLabel = bandEval==='bad' ? 'ACT NOW' : (bandEval==='warn' ? 'WATCH' : (bandEval==='stale' ? 'STALE' : 'NOMINAL')); $('riskNum').innerHTML = riskEval + '<small>/100</small>'; log(bandEval==='warn' || bandEval==='bad' ? 'WARN' : 'OK','risk eval · index='+riskEval+' · band '+bandLabel); }
     else if (roll < 0.9) log('SYS','sync queue · 1 pkg pending · next window TDRS-E +00:14:00');
     else log('TLM','ecg 250 hz · lead II · signal quality 98% · battery 87%');
   }, 1000);
