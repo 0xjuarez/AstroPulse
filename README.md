@@ -18,6 +18,8 @@ Not against population averages, but against the astronaut's own 7-day personal 
 
 ## What it does
 
+> **How it works, in detail:** [`docs/HOW_IT_WORKS.md`](docs/HOW_IT_WORKS.md) — the astronaut's flow, rules R1–R5 with a worked example, the six indicators, architecture, backend API, and offline-first sync.
+
 - **Astronaut view:** live ECG, heart rate, HRV, SpO2, temperature, sleep, risk status **GREEN / AMBER / RED / STALE**, 5-minute HR chart and 7-day trend.
 - **Daily check-in:** mood / energy / stress / sleep, 1–5, plus a note.
 - **Mission Control:** 4 crew members at a glance, with their status and last action.
@@ -117,9 +119,7 @@ No NASA-published clinical HR/mood alert threshold was found, so AstroPulse uses
 
 ## Team
 
-- Jesús Alejandro Juárez Contreras — Team Owner
-- Arturo Miruelo Gonzalez
-- Octavio Ramirez Parra
+- Jesús Alejandro Juárez Contreras — Team Owner (solo)
 
 ## Honest limits
 
